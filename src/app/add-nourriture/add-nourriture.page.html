@@ -1,0 +1,168 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Ajouter un objet à la base</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-select placeholder="Selectionner le type de produit" [(ngModel)]="selectedNourriture" (ionChange)="showForm($event)">
+    <ion-select-option value="p">Plat</ion-select-option>
+    <ion-select-option value="e">Entrée</ion-select-option>
+    <ion-select-option value="d">Dessert</ion-select-option>
+    <ion-select-option value="s">Snack</ion-select-option>
+    <ion-select-option value="b">Boisson</ion-select-option>
+  </ion-select>
+
+  <form #newPlat="ngForm" (ngSubmit)="addPlat(newPlat)" *ngIf="selectedForm == 'p'">
+    <ion-toolbar>
+      <ion-title>Ajout d'un plat</ion-title>
+    </ion-toolbar>
+      <ion-item>
+        <ion-input required type="text" name="name" placeholder="nom" ngModel></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input required type="number" name="price" placeholder="prix" ngModel></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Disponible hors menu</ion-label>
+        <ion-checkbox checked="true" name="isAvailableOffMenu" ngModel></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-input required type="number" name="availableQuantity" placeholder="Quantité disponible" ngModel></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input required type="text" name="imgUrl" placeholder="URL de l'image de présentation" ngModel></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-select placeholder="Choisir une température" name="temp" ngModel>
+          <ion-select-option value="chaud">Chaud</ion-select-option>
+          <ion-select-option value="froid">Froid</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Ingredients</ion-label>
+        <ion-textarea required name="ingredients" placeholder="Un ingrédient par ligne" ngModel></ion-textarea>
+      </ion-item>
+      <div text-center><ion-button ion-button round text-center type="submit">Enregistrer</ion-button></div>
+  </form>
+
+  <form #newDessert="ngForm" (ngSubmit)="addDessert(newDessert)" *ngIf="selectedForm == 'd'">
+      <ion-toolbar>
+          <ion-title>Ajout d'un dessert</ion-title>
+        </ion-toolbar>
+      <ion-item>
+        <ion-input required type="text" name="name" placeholder="nom" ngModel></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input required type="number" name="price" placeholder="prix" ngModel></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Disponible hors menu</ion-label>
+        <ion-checkbox checked="false" name="isAvailableOffMenu" ngModel></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-input required type="number" name="availableQuantity" placeholder="Quantité disponible" ngModel></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input required type="text" name="imgUrl" placeholder="URL de l'image de présentation" ngModel></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Dessert surgelé ?</ion-label>
+        <ion-checkbox name="isFrozen" ngModel></ion-checkbox>
+      </ion-item>
+      <div text-center><ion-button ion-button round text-center type="submit">Enregistrer</ion-button></div>
+  </form>
+
+  <form #newBoisson="ngForm" (ngSubmit)="addBoisson(newBoisson)" *ngIf="selectedForm == 'b'">
+      <ion-toolbar>
+          <ion-title>Ajout d'une boisson</ion-title>
+        </ion-toolbar>
+      <ion-item>
+        <ion-input required type="text" name="name" placeholder="nom" ngModel></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input required type="number" name="price" placeholder="prix" ngModel></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Disponible hors menu</ion-label>
+        <ion-checkbox name="isAvailableOffMenu" ngModel></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-input required type="number" name="availableQuantity" placeholder="Quantité disponible" ngModel></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input required type="text" name="imgUrl" placeholder="URL de l'image de présentation" ngModel></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-select placeholder="Choisir une température" name="temp" ngModel>
+          <ion-select-option value="chaud">Chaud</ion-select-option>
+          <ion-select-option value="froid">Froid</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div text-center><ion-button ion-button round text-center type="submit">Enregistrer</ion-button></div>
+  </form>
+
+  <form #newSnack="ngForm" (ngSubmit)="addSnack(newSnack)" *ngIf="selectedForm == 's'">
+      <ion-toolbar>
+          <ion-title>Ajout d'un snack</ion-title>
+        </ion-toolbar>
+      <ion-item>
+        <ion-input required type="text" name="name" placeholder="nom" ngModel></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input required type="number" name="price" placeholder="prix" ngModel></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Disponible hors menu</ion-label>
+        <ion-checkbox checked="true" name="isAvailableOffMenu" ngModel></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-input required type="number" name="availableQuantity" placeholder="Quantité disponible" ngModel></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input required type="text" name="imgUrl" placeholder="URL de l'image de présentation" ngModel></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Salé ?</ion-label>
+        <ion-checkbox name="isSalty" ngModel></ion-checkbox>
+      </ion-item>
+      <div text-center><ion-button ion-button round text-center type="submit">Enregistrer</ion-button></div>
+  </form>
+
+  <form #newEntree="ngForm" (ngSubmit)="addEntree(newEntree)" *ngIf="selectedForm == 'e'">
+      <ion-toolbar>
+          <ion-title>Ajout d'une entrée</ion-title>
+        </ion-toolbar>
+      <ion-item>
+        <ion-input required type="text" name="name" placeholder="nom" ngModel></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input required type="number" name="price" placeholder="prix" ngModel></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Disponible hors menu</ion-label>
+        <ion-checkbox checked="true" name="isAvailableOffMenu" ngModel></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-input required type="number" name="availableQuantity" placeholder="Quantité disponible" ngModel></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input required type="text" name="imgUrl" placeholder="URL de l'image de présentation" ngModel></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-select placeholder="Choisir une température" name="temp" ngModel>
+          <ion-select-option value="chaud">Chaud</ion-select-option>
+          <ion-select-option value="froid">Froid</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Ingredients</ion-label>
+        <ion-textarea required name="ingredients" placeholder="Un ingrédient par ligne" ngModel></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-input required type="text" name="description" placeholder="Description du produit" ngModel></ion-input>
+      </ion-item>
+      <div text-center><ion-button ion-button round text-center type="submit">Enregistrer</ion-button></div>
+  </form>
+
+</ion-content>

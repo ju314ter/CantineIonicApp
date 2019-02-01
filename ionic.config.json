@@ -1,0 +1,8 @@
+{
+  "name": "CantineApp",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular",
+  "id": "791c5865"
+}
