@@ -14,8 +14,9 @@ export class Entree extends Nourriture {
     description: string,
     temp: boolean,
     type : String,
+    id?: String,
   ) {
-    super(name, price, isAvailableOffMenu, availableQuanity, imgUrl, type);
+    super(name, price, isAvailableOffMenu, availableQuanity, imgUrl, type, id);
 
     this.ingredients = ingredients;
     this.description = description;

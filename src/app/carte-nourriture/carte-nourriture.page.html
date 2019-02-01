@@ -1,9 +1,54 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>carteNourriture</ion-title>
+    <ion-title>La carte</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+
+  <ion-card *ngFor="let nourriture of plats">
+    <ion-img *ngIf="nourriture.imgUrl" src="{{ nourriture.imgUrl }}" [alt]="nourriture.imgUrl"></ion-img>
+    <ion-card-header>
+      <ion-card-title>{{ nourriture.name }}</ion-card-title>
+    </ion-card-header>
+    <ion-button color="light" outline [routerLink]="['/edit-page', nourriture.id]" routerDirection="forward">modifier</ion-button>
+    <ion-button color="danger" outline (click)="deleteNourriture(nourriture.id, nourriture.type)">supprimer</ion-button>
+  </ion-card>
+
+  <ion-card *ngFor="let nourriture of entrees">
+    <ion-img *ngIf="nourriture.imgUrl" src="{{ nourriture.imgUrl }}" [alt]="nourriture.imgUrl"></ion-img>
+    <ion-card-header>
+      <ion-card-title>{{ nourriture.name }}</ion-card-title>
+    </ion-card-header>
+    <ion-button color="light" outline [routerLink]="['/edit-page', nourriture.id]" routerDirection="forward">modifier</ion-button>
+    <ion-button color="danger" outline (click)="deleteNourriture(nourriture.id, nourriture.type)">supprimer</ion-button>
+  </ion-card>
+
+  <ion-card *ngFor="let nourriture of desserts">
+    <ion-img *ngIf="nourriture.imgUrl" src="{{ nourriture.imgUrl }}" [alt]="nourriture.imgUrl"></ion-img>
+    <ion-card-header>
+      <ion-card-title>{{ nourriture.name }}</ion-card-title>
+    </ion-card-header>
+    <ion-button color="light" outline [routerLink]="['/edit-page', nourriture.id]" routerDirection="forward">modifier</ion-button>
+    <ion-button color="danger" outline (click)="deleteNourriture(nourriture.id, nourriture.type)">supprimer</ion-button>
+  </ion-card>
+
+  <ion-card *ngFor="let nourriture of snacks">
+    <ion-img *ngIf="nourriture.imgUrl" src="{{ nourriture.imgUrl }}" [alt]="nourriture.imgUrl"></ion-img>
+    <ion-card-header>
+      <ion-card-title>{{ nourriture.name }}</ion-card-title>
+    </ion-card-header>
+    <ion-button color="light" outline [routerLink]="['/edit-page', nourriture.id]" routerDirection="forward">modifier</ion-button>
+    <ion-button color="danger" outline (click)="deleteNourriture(nourriture.id, nourriture.type)">supprimer</ion-button>
+  </ion-card>
+
+  <ion-card *ngFor="let nourriture of boissons">
+    <ion-img *ngIf="nourriture.imgUrl" src="{{ nourriture.imgUrl }}" [alt]="nourriture.imgUrl"></ion-img>
+    <ion-card-header>
+      <ion-card-title>{{ nourriture.name }}</ion-card-title>
+    </ion-card-header>
+    <ion-button color="light" outline [routerLink]="['/edit-page', nourriture.id]" routerDirection="forward">modifier</ion-button>
+    <ion-button color="danger" outline (click)="deleteNourriture(nourriture.id, nourriture.type)">supprimer</ion-button>
+  </ion-card>
 
 </ion-content>

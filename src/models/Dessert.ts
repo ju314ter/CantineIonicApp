@@ -9,9 +9,10 @@ export class Dessert extends Nourriture {
     availableQuanity: number,
     imgUrl: string,
     type: string,
-    isFrozen: boolean
+    isFrozen: boolean,
+    id?: String,
   ) {
-    super(name, price, isAvailableOffMenu, availableQuanity, imgUrl, type);
+    super(name, price, isAvailableOffMenu, availableQuanity, imgUrl, type, id);
     this.isFrozen = isFrozen;
   }
 }

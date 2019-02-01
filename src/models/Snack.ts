@@ -10,9 +10,10 @@ export class Snack extends Nourriture {
     availableQuanity: number,
     imgUrl: string,
     type: string,
-    isSalty: boolean
+    isSalty: boolean,
+    id?: string,
   ) {
-    super(name, price, isAvailableOffMenu, availableQuanity, imgUrl, type);
+    super(name, price, isAvailableOffMenu, availableQuanity, imgUrl, type, id);
     this.isSalty = isSalty;
   }
 }

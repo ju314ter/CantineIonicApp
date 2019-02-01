@@ -5,14 +5,16 @@ export class Nourriture {
   availableQuantity: Number;
   imgUrl: String;
   type: String;
+  id: String;
 
-  constructor(name, price, isAvailableOffMenu, availableQuanity, imgUrl, type) {
+  constructor(name, price, isAvailableOffMenu, availableQuanity, imgUrl, type, id?) {
     this.name = name;
     this.price = price;
     this.isAvailableOffMenu = isAvailableOffMenu;
     this.availableQuantity = availableQuanity;
     this.imgUrl = imgUrl;
     this.type = type;
+    this.id = id;
   }
 
 }

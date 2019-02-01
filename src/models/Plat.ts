@@ -11,9 +11,11 @@ export class Plat extends Nourriture {
         imgUrl : string,
         type: string,
         ingredients : string[],
-        temp: boolean)
+        temp: boolean,
+        id?: string,
+        )
         {
-        super(name, price, isAvailableOffMenu, availableQuanity, imgUrl, type);
+        super(name, price, isAvailableOffMenu, availableQuanity, imgUrl, type, id);
         this.ingredients = ingredients;
         this.temp = temp;
     }

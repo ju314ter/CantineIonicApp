@@ -29,6 +29,7 @@ const httpOptions = {
 })
 export class InventoryServiceService {
   nourritureCollection: AngularFirestoreCollection<Nourriture>;
+  nourritureDocument: AngularFirestoreDocument<Nourriture>;
   nourriture: Observable<Nourriture[]>;
 
   constructor(
@@ -56,7 +57,7 @@ export class InventoryServiceService {
   }
 
   pushNourritureToDb<Nourriture>(nourriture) {
-    let typeOfNourriture = "Plats";
+    let typeOfNourriture = "";
     switch (nourriture.type) {
       case "Plat": {
         typeOfNourriture = "Plats";
@@ -100,17 +101,131 @@ export class InventoryServiceService {
     });
   }
 
-  getNourritureFromDb() {
-    this.nourritureCollection = this.cantineappdb.collection("Nourriture");
-    return (this.nourriture = this.nourritureCollection.valueChanges());
+  getNourritureFromDb(type): Promise<any> {
+    this.nourritureCollection = this.cantineappdb
+      .collection("Inventaire")
+      .doc("Nourriture")
+      .collection(type);
+
+    return new Promise((resolve, reject) => {
+      switch (type) {
+        case "Plats": {
+          this.nourritureCollection.ref.get().then(data => {
+            let platArray: Plat[] = [];
+            data.docs.forEach(doc => {
+              let plat = new Plat("", 0, false, 0, "", "", [""], false);
+              plat.name = doc.data().nourritureJson.name;
+              plat.price = doc.data().nourritureJson.price;
+              plat.ingredients = doc.data().nourritureJson.ingredients;
+              plat.type = doc.data().nourritureJson.type;
+              plat.availableQuantity = doc.data().nourritureJson.availableQuantity;
+              plat.isAvailableOffMenu = doc.data().nourritureJson.isAvailableOffMenu;
+              plat.imgUrl = doc.data().nourritureJson.imgUrl;
+              plat.temp = doc.data().nourritureJson.temp;
+              platArray.push(plat);
+            });
+            resolve(platArray);
+          });
+          break;
+        }
+        case "Entrees": {
+          this.nourritureCollection.ref.get().then(data => {
+            let entreeArray: Entree[] = [];
+            data.docs.forEach(doc => {
+              let entree = new Entree([""], "", 0, false, 0, "", "", false, "");
+              entree.name = doc.data().nourritureJson.name;
+              entree.price = doc.data().nourritureJson.price;
+              entree.ingredients = doc.data().nourritureJson.ingredients;
+              entree.type = doc.data().nourritureJson.type;
+              entree.availableQuantity = doc.data().nourritureJson.availableQuantity;
+              entree.isAvailableOffMenu = doc.data().nourritureJson.isAvailableOffMenu;
+              entree.imgUrl = doc.data().nourritureJson.imgUrl;
+              entree.temp = doc.data().nourritureJson.temp;
+              entree.description = doc.data().nourritureJson.description;
+              entreeArray.push(entree);
+            });
+            resolve(entreeArray);
+          });
+          break;
+        }
+        case "Snacks": {
+          this.nourritureCollection.ref.get().then(data => {
+            let snackArray: Snack[] = [];
+            data.docs.forEach(doc => {
+              let snack = new Snack("", 0, false, 0, "", "", false);
+              snack.name = doc.data().nourritureJson.name;
+              snack.price = doc.data().nourritureJson.price;
+              snack.type = doc.data().nourritureJson.type;
+              snack.availableQuantity = doc.data().nourritureJson.availableQuantity;
+              snack.isAvailableOffMenu = doc.data().nourritureJson.isAvailableOffMenu;
+              snack.imgUrl = doc.data().nourritureJson.imgUrl;
+              snack.isSalty = doc.data().nourritureJson.isSalty;
+              snackArray.push(snack);
+            });
+            resolve(snackArray);
+          });
+          break;
+        }
+        case "Boissons": {
+          this.nourritureCollection.ref.get().then(data => {
+            let boissonArray: Boisson[] = [];
+            data.docs.forEach(doc => {
+              let boisson = new Boisson("", 0, false, 0, "", "", false);
+              boisson.name = doc.data().nourritureJson.name;
+              boisson.price = doc.data().nourritureJson.price;
+              boisson.type = doc.data().nourritureJson.type;
+              boisson.availableQuantity = doc.data().nourritureJson.availableQuantity;
+              boisson.isAvailableOffMenu = doc.data().nourritureJson.isAvailableOffMenu;
+              boisson.imgUrl = doc.data().nourritureJson.imgUrl;
+              boisson.temp = doc.data().nourritureJson.temp;
+              boissonArray.push(boisson);
+            });
+            resolve(boissonArray);
+          });
+          break;
+        }
+        case "Desserts": {
+          this.nourritureCollection.ref.get().then(data => {
+            let dessertArray: Dessert[] = [];
+            data.docs.forEach(doc => {
+              let dessert = new Dessert("", 0, false, 0, "", "", false);
+              dessert.name = doc.data().nourritureJson.name;
+              dessert.price = doc.data().nourritureJson.price;
+              dessert.isFrozen = doc.data().nourritureJson.isFrozen;
+              dessert.type = doc.data().nourritureJson.type;
+              dessert.availableQuantity = doc.data().nourritureJson.availableQuantity;
+              dessert.isAvailableOffMenu = doc.data().nourritureJson.isAvailableOffMenu;
+              dessert.imgUrl = doc.data().nourritureJson.imgUrl;
+              dessertArray.push(dessert);
+            });
+            resolve(dessertArray);
+          });
+          break;
+        }
+        default: {
+          console.log("Aucun type sélectionné");
+          reject();
+        }
+      }
+    });
   }
 
-  pushMenuToDb<Menu>(menu: Menu): Observable<Menu> {
-    const url = "https://food-for-fun-bdd.firebaseio.com/menu.json";
-    return this.http.post<Menu>(url, menu, { responseType: "json" }).pipe(
-      tap((product: Menu) => console.log("nourriture ajouté")),
-      catchError(this.handleError<Menu>("pushNourritureToDb"))
-    );
+  pushMenuToDb<Menu>(menu: Menu) {
+    // return new Promise((res, rej) => {
+    //   this.cantineappdb
+    //     .collection("Inventaire")
+    //     .doc("Menu")
+    //     .collection(typeOfNourriture)
+    //     .add({ menuJson })
+    //     .then(function() {
+    //       console.log("Document ajouté!");
+    //       res();
+    //     })
+    //     .catch(function(error) {
+    //       rej();
+    //       this.handleError(error);
+    //     });
+    // });
   }
 
   getMenuFromDb() {}

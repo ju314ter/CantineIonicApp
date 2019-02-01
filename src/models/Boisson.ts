@@ -9,9 +9,10 @@ export class Boisson extends Nourriture {
     availableQuanity: number,
     imgUrl: string,
     type: string,
-    temp: boolean
+    temp: boolean,
+    id?: String
   ) {
-    super(name, price, isAvailableOffMenu, availableQuanity, imgUrl, type);
+    super(name, price, isAvailableOffMenu, availableQuanity, imgUrl, type, id);
     this.temp = temp;
   }
 }
