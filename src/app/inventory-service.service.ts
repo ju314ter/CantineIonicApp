@@ -122,6 +122,7 @@ export class InventoryServiceService {
               plat.isAvailableOffMenu = doc.data().nourritureJson.isAvailableOffMenu;
               plat.imgUrl = doc.data().nourritureJson.imgUrl;
               plat.temp = doc.data().nourritureJson.temp;
+              plat.id = doc.id;
               platArray.push(plat);
             });
             resolve(platArray);
@@ -142,6 +143,7 @@ export class InventoryServiceService {
               entree.imgUrl = doc.data().nourritureJson.imgUrl;
               entree.temp = doc.data().nourritureJson.temp;
               entree.description = doc.data().nourritureJson.description;
+              entree.id = doc.id;
               entreeArray.push(entree);
             });
             resolve(entreeArray);
@@ -160,6 +162,7 @@ export class InventoryServiceService {
               snack.isAvailableOffMenu = doc.data().nourritureJson.isAvailableOffMenu;
               snack.imgUrl = doc.data().nourritureJson.imgUrl;
               snack.isSalty = doc.data().nourritureJson.isSalty;
+              snack.id = doc.id;
               snackArray.push(snack);
             });
             resolve(snackArray);
@@ -178,6 +181,7 @@ export class InventoryServiceService {
               boisson.isAvailableOffMenu = doc.data().nourritureJson.isAvailableOffMenu;
               boisson.imgUrl = doc.data().nourritureJson.imgUrl;
               boisson.temp = doc.data().nourritureJson.temp;
+              boisson.id = doc.id;
               boissonArray.push(boisson);
             });
             resolve(boissonArray);
@@ -196,6 +200,7 @@ export class InventoryServiceService {
               dessert.availableQuantity = doc.data().nourritureJson.availableQuantity;
               dessert.isAvailableOffMenu = doc.data().nourritureJson.isAvailableOffMenu;
               dessert.imgUrl = doc.data().nourritureJson.imgUrl;
+              dessert.id = doc.id;
               dessertArray.push(dessert);
             });
             resolve(dessertArray);

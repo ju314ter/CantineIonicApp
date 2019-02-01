@@ -35,7 +35,8 @@ export class CarteNourriturePage implements OnInit {
   }
 
   deleteNourriture(id, type){
-    console.log(this.plats);
+    console.log(id);
+    console.log(type);
   }
 
 }
