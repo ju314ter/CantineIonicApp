@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-title>Inscription</ion-title>
+</ion-header>
+<ion-card>
+  <form #inscriptionForm="ngForm" (ngSubmit)="inscription(inscriptionForm)">
+      <ion-item>
+        <ion-input required type="mail" placeholder="Adresse mail" name="mail" [(ngModel)]="inscriptionForm.mailUser" #mailUser="ngModel"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input required type="password" placeholder="Mot de passe" name="password" [(ngModel)]="inscriptionForm.password" #password="ngModel"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input required appConfirmEqualValidator="password" type="password" placeholder="Confirmation mot de passe" name="confirmPassword" [(ngModel)]="inscriptionForm.confirmPassword" #confirmPassword="ngModel"></ion-input>
+      </ion-item>
+      <div *ngIf="confirmPassword.touched && confirmPassword.errors?.required">
+        <p>Confirmez votre mot de passe s'il vous plait.</p>
+      </div>
+      <div *ngIf="confirmPassword.touched && confirmPassword.errors?.notEqual && !confirmPassword.errors?.required">
+        <p>Les mots de passe ne correspondent pas</p>
+      </div>
+      <ion-button ion-button round text-center type="submit" 
+      *ngIf="mailUser.touched && !confirmPassword.errors?.required && !confirmPassword.errors?.notEqual">
+      Valider
+      </ion-button>
+    </form>
+</ion-card>

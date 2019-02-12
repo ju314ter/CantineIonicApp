@@ -55,7 +55,6 @@ export class InventoryServiceService {
       return error;
     };
   }
-
   pushNourritureToDb<Nourriture>(nourriture) {
     let typeOfNourriture = "";
     switch (nourriture.type) {
@@ -100,7 +99,6 @@ export class InventoryServiceService {
         });
     });
   }
-
   getNourritureFromDb(type): Promise<any> {
     this.nourritureCollection = this.cantineappdb
       .collection("Inventaire")

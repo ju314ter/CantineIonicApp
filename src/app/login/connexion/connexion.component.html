@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-title>Connexion</ion-title>
+</ion-header>
+<ion-card>
+  <form #connexionForm="ngForm" (ngSubmit)="connexion(connexionForm)">
+    <ion-item>
+      <ion-input required type="mail" placeholder="Adresse mail" name="mailUser" [(ngModel)]="connexionForm.mailUser"
+        #mailUser="ngModel"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input required type="password" placeholder="Mot de passe" name="password" [(ngModel)]="connexionForm.password"
+        #password="ngModel"></ion-input>
+    </ion-item>
+    <ion-button ion-button round text-center type="submit" *ngIf="!password.errors?.required && !mailUser.errors?.required">Connexion</ion-button>
+  </form>
+
+</ion-card>

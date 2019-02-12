@@ -33,7 +33,6 @@ export class CarteNourriturePage implements OnInit {
     this.Inventory.getNourritureFromDb("Desserts").then((data : Dessert[])=>{this.desserts = data;});
     this.Inventory.getNourritureFromDb("Snacks").then((data : Snack[])=>{this.snacks = data;});
   }
-
   deleteNourriture(id, type){
     console.log(id);
     console.log(type);

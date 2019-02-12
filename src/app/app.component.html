@@ -1,6 +1,7 @@
 <ion-app>
   <ion-split-pane>
-    <ion-menu>
+    
+    <ion-menu *ngIf="userConnected">
       <ion-header>
         <ion-toolbar>
           <ion-title>Menu</ion-title>
@@ -17,8 +18,11 @@
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
+        <div text-center><ion-button text-center (click)="logout()">Deconnexion</ion-button></div>
       </ion-content>
     </ion-menu>
+
     <ion-router-outlet main></ion-router-outlet>
+
   </ion-split-pane>
 </ion-app>
