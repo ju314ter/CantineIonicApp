@@ -11,7 +11,9 @@
       <ion-input required type="password" placeholder="Mot de passe" name="password" [(ngModel)]="connexionForm.password"
         #password="ngModel"></ion-input>
     </ion-item>
-    <ion-button ion-button round text-center type="submit" *ngIf="!password.errors?.required && !mailUser.errors?.required">Connexion</ion-button>
+    <div text-center>
+      <ion-button ion-button round text-center type="submit" *ngIf="!password.errors?.required && !mailUser.errors?.required">Connexion</ion-button>
+    </div>
   </form>
 
 </ion-card>

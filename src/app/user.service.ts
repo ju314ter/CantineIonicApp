@@ -45,9 +45,7 @@ export class UserService {
           return of(null)
         }
       }),
-      // startWith(JSON.parse(localStorage.getItem('user')))
     )
-    console.log(JSON.stringify(this.user));
   }
 
   inscrireUser(user: User) {
@@ -76,7 +74,14 @@ export class UserService {
   connecterUser(user: User) {
 
     return this.cantineAuth.auth.signInWithEmailAndPassword(user.mailUser, user.password)
-    .then(data => { localStorage.setItem('user', JSON.stringify(data)) })
+    .then(data => {
+    const userRef = this.cantineappdb.doc(`/Utilisateurs/${data.user.uid}`)
+    userRef.ref.get().then((doc)=>{
+      let connectedUser = doc.data();
+      localStorage.setItem('user', JSON.stringify(connectedUser))
+    })
+    
+    })
 
     // this.userCollection = this.cantineappdb.collection("Utilisateurs");
 

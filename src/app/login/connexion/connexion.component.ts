@@ -26,6 +26,7 @@ export class ConnexionComponent implements OnInit {
               }
 
   ngOnInit() {
+
   }
 
   async presentAlert(message) {
@@ -52,8 +53,10 @@ export class ConnexionComponent implements OnInit {
     };
 
     this.userService.connecterUser(user)
-    .then((data)=>{
-      this.redirectToHome();
+    .then(()=>{
+      setTimeout(()=>{
+        this.redirectToHome();
+      }, 1000);
       this.presentToast("Bienvenue.")
     })
     .catch((err)=>{
@@ -63,6 +66,7 @@ export class ConnexionComponent implements OnInit {
   }
     
     redirectToHome(){
+      console.log("redirecting")
       return this.router.navigateByUrl('/home');
     }
 

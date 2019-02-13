@@ -13,6 +13,10 @@ const routes: Routes = [
   { path: 'panier', loadChildren: './panier/panier.module#PanierPageModule', canActivate: [AuthGuardGuard] },
   { path: 'edit-nourriture', loadChildren: './edit-nourriture/edit-nourriture.module#EditNourriturePageModule', canActivate: [AuthGuardGuard] },
   { path: 'detail-nourriture', loadChildren: './detail-nourriture/detail-nourriture.module#DetailNourriturePageModule', canActivate: [AuthGuardGuard] },
+  { path: 'edit-nourriture/:key', loadChildren: './edit-nourriture/edit-nourriture.module#EditNourriturePageModule', canActivate: [AuthGuardGuard] },
+  { path: 'detail-nourriture/:key/:type', loadChildren: './detail-nourriture/detail-nourriture.module#DetailNourriturePageModule', canActivate: [AuthGuardGuard] },
+  { path: 'add-menu', loadChildren: './add-menu/add-menu.module#AddMenuPageModule', canActivate: [AuthGuardGuard] },
+  { path: 'detail-menu/:key/:entree/:plat/:dessert/:boisson', loadChildren: './detail-menu/detail-menu.module#DetailMenuPageModule', canActivate: [AuthGuardGuard] }
 ];
 
 @NgModule({

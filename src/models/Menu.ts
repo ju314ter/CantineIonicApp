@@ -4,24 +4,29 @@ import {Dessert} from './Dessert'
 import {Plat} from './Plat'
 
 export class Menu {
-    plat : Plat;
-    dessert : Dessert;
-    snack : Snack;
-    boisson: Boisson;
-    dates : Date[];
-    totalCost : Number;
-    constructor(dates: Date[], plat : Plat, dessert?: Dessert, snack? : Snack, boisson?: Boisson){
+    name: string;
+    entree: string;
+    plat: string;
+    dessert: string;
+    snack: string;
+    boisson: string;
+    date: Date;
+    id: string;
+    imgUrl?: string;
+    constructor(name: string, date: Date, plat: string, entree: string, dessert?: string, snack?: string, boisson?: string, id?: string, imgUrl?: string) {
+        this.name = name;
+        this.entree = entree;
         this.plat = plat;
         this.dessert = dessert;
         this.snack = snack;
         this.boisson = boisson;
-        this.dates = dates
-        this.totalCost = this.getPrice(plat, dessert, snack, boisson);
+        this.date = date;
+        this.id = id;
+        this.imgUrl = imgUrl;
     }
 
-    getPrice(plat, dessert?, snack?, boisson?){
-        
-        let totalCost = plat.price + (dessert ? dessert.price : 0) + (snack ? snack.price : 0) + (boisson ? boisson.price : 0);
+/*    getPrice(entree, plat, dessert?, snack?, boisson?) {
+        let totalCost = entree.price + plat.price + (dessert ? dessert.price : 0) + (snack ? snack.price : 0) + (boisson ? boisson.price : 0);
         return totalCost;
-    }
+    }*/
 }

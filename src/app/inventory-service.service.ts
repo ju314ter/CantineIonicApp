@@ -16,6 +16,7 @@ import {
   AngularFirestoreDocument
 } from "angularfire2/firestore";
 import { resolve } from "url";
+import { Menu } from "src/models/Menu";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -30,7 +31,8 @@ const httpOptions = {
 export class InventoryServiceService {
   nourritureCollection: AngularFirestoreCollection<Nourriture>;
   nourritureDocument: AngularFirestoreDocument<Nourriture>;
-  nourriture: Observable<Nourriture[]>;
+  menuDocument: AngularFirestoreDocument<Menu>;
+  menuCollection: AngularFirestoreCollection<Menu>;
 
   constructor(
     private http: HttpClient,
@@ -212,24 +214,155 @@ export class InventoryServiceService {
       }
     });
   }
-
-  pushMenuToDb<Menu>(menu: Menu) {
-    // return new Promise((res, rej) => {
-    //   this.cantineappdb
-    //     .collection("Inventaire")
-    //     .doc("Menu")
-    //     .collection(typeOfNourriture)
-    //     .add({ menuJson })
-    //     .then(function() {
-    //       console.log("Document ajouté!");
-    //       res();
-    //     })
-    //     .catch(function(error) {
-    //       rej();
-    //       this.handleError(error);
-    //     });
-    // });
-  }
-
-  getMenuFromDb() {}
+  getOneNourritureFromDb(type: string, key: string): Promise<any> {
+    this.nourritureDocument = this.cantineappdb
+        .collection('Inventaire')
+        .doc('Nourriture')
+        .collection(type)
+        .doc(key);
+    return new Promise((resolve, reject) => {
+        switch (type) {
+            case 'Plats': {
+                this.nourritureDocument.ref.get()
+                    .then((doc) => {
+                        let plat = new Plat("", 0, false, 0, "", "", [""], false);
+                        plat.name = doc.data().nourritureJson.name;
+                        plat.price = doc.data().nourritureJson.price;
+                        plat.ingredients = doc.data().nourritureJson.ingredients;
+                        plat.type = doc.data().nourritureJson.type;
+                        plat.availableQuantity = doc.data().nourritureJson.availableQuantity;
+                        plat.isAvailableOffMenu = doc.data().nourritureJson.isAvailableOffMenu;
+                        plat.imgUrl = doc.data().nourritureJson.imgUrl;
+                        plat.temp = doc.data().nourritureJson.temp;
+                        plat.id = doc.id;
+                        resolve(plat);
+                });
+                break;
+            }
+            case 'Entrees': {
+                console.log('entree');
+                this.nourritureDocument.ref.get()
+                    .then((doc) => {
+                        let entree = new Plat("", 0, false, 0, "", "", [""], false);
+                        entree.name = doc.data().nourritureJson.name;
+                        entree.price = doc.data().nourritureJson.price;
+                        entree.ingredients = doc.data().nourritureJson.ingredients;
+                        entree.type = doc.data().nourritureJson.type;
+                        entree.availableQuantity = doc.data().nourritureJson.availableQuantity;
+                        entree.isAvailableOffMenu = doc.data().nourritureJson.isAvailableOffMenu;
+                        entree.imgUrl = doc.data().nourritureJson.imgUrl;
+                        entree.temp = doc.data().nourritureJson.temp;
+                        entree.id = doc.id;
+                        resolve(entree);
+                    });
+                break;
+            }
+            case 'Boissons': {
+                this.nourritureDocument.ref.get()
+                    .then((doc) => {
+                        let boisson = new Plat("", 0, false, 0, "", "", [""], false);
+                        boisson.name = doc.data().nourritureJson.name;
+                        boisson.price = doc.data().nourritureJson.price;
+                        boisson.ingredients = doc.data().nourritureJson.ingredients;
+                        boisson.type = doc.data().nourritureJson.type;
+                        boisson.availableQuantity = doc.data().nourritureJson.availableQuantity;
+                        boisson.isAvailableOffMenu = doc.data().nourritureJson.isAvailableOffMenu;
+                        boisson.imgUrl = doc.data().nourritureJson.imgUrl;
+                        boisson.temp = doc.data().nourritureJson.temp;
+                        boisson.id = doc.id;
+                        resolve(boisson);
+                    });
+                break;
+            }
+            case 'Desserts': {
+                this.nourritureDocument.ref.get()
+                    .then((doc) => {
+                        let dessert = new Plat("", 0, false, 0, "", "", [""], false);
+                        dessert.name = doc.data().nourritureJson.name;
+                        dessert.price = doc.data().nourritureJson.price;
+                        dessert.ingredients = doc.data().nourritureJson.ingredients;
+                        dessert.type = doc.data().nourritureJson.type;
+                        dessert.availableQuantity = doc.data().nourritureJson.availableQuantity;
+                        dessert.isAvailableOffMenu = doc.data().nourritureJson.isAvailableOffMenu;
+                        dessert.imgUrl = doc.data().nourritureJson.imgUrl;
+                        dessert.temp = doc.data().nourritureJson.temp;
+                        dessert.id = doc.id;
+                        resolve(dessert);
+                    });
+                break;
+            }
+            default: {
+                console.log('Aucun type sélectionné');
+                reject();
+            }
+        }
+    });
 }
+pushMenuToDb<Menu>(menu: Menu) {
+    let menuJson = JSON.parse(JSON.stringify(menu));
+    console.log(menuJson);
+    return new Promise((res, rej) => {
+        this.cantineappdb
+            .collection('Inventaire')
+            .doc('Menu')
+            .collection('Menu')
+            .add({ menuJson })
+            .then(function() {
+                console.log('Menu ajouté !');
+                res();
+            })
+            .catch(function(error) {
+                rej();
+                this.handleError(error);
+            });
+    });
+}
+getMenuFromDb(): Promise<any> {
+    this.menuCollection = this.cantineappdb
+        .collection('Inventaire')
+        .doc('Menu')
+        .collection('Menu');
+    return new Promise((resolve) => {
+        this.menuCollection.ref.get().then(data => {
+            let menuArray: Menu[] = [];
+            data.docs.forEach(doc => {
+                let menu = new Menu('', new Date(), '', '', '', '', '');
+                menu.name = doc.data().menuJson.name;
+                menu.entree = doc.data().menuJson.entree;
+                menu.plat = doc.data().menuJson.plat;
+                menu.dessert = doc.data().menuJson.dessert;
+                menu.boisson = doc.data().menuJson.boisson;
+                menu.date = doc.data().menuJson.date;
+                menu.id = doc.id;
+                menuArray.push(menu);
+            });
+            resolve(menuArray);
+        });
+    });
+}
+getOneMenuFromDb(key: string): Promise<any> {
+    this.menuDocument = this.cantineappdb
+        .collection('Inventaire')
+        .doc('Menu')
+        .collection('Menu')
+        .doc(key);
+    return new Promise((resolve) => {
+        this.menuDocument.ref.get()
+            .then((doc) => {
+                let menu = new Menu('', new Date(), '', '', '', '', '');
+                menu.name = doc.data().menuJson.name;
+                menu.entree = doc.data().menuJson.entree;
+                menu.plat = doc.data().menuJson.plat;
+                menu.dessert = doc.data().menuJson.dessert;
+                menu.boisson = doc.data().menuJson.boisson;
+                menu.date = doc.data().menuJson.date;
+                resolve(menu);
+            });
+    });
+}
+}
+
+//TODO: Faire le crud pour les menus et les afficher sur la home page en fonction de la date du jour. C'est le plus urgent.
+//TODO: Après le crud pour les users avec l'authentification, l'ajout d'un panier avec un historique des commandes.
+//TODO: Puis intégrer tout notre code à ce qu'on a déjà sur le site. Et pendant ce temps là que JB code le backend et remplace les connections à firebase par des connection au backend.
+//TODO:Et la on aura tout juste un mvp et je suis sur qu'il restera plein de truc à améliorer niveau design et ux.

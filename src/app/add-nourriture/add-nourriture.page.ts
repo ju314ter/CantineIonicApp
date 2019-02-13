@@ -41,31 +41,6 @@ export class AddNourriturePage implements OnInit {
     toast.present();
   }
 
-  showForm(event){
-    switch(event.detail.value){
-      case "e": {
-        this.selectedForm = "e";
-        break;
-      }
-      case "p": {
-        this.selectedForm = "p";
-        break;
-      }
-      case "d": {
-        this.selectedForm = "d";
-        break;
-      }
-      case "s": {
-        this.selectedForm = "s";
-        break;
-      }
-      case "b": {
-        this.selectedForm = "b";
-        break;
-      }
-    }
-  }
-
   addPlat(newPlat) {
     this.plat.name = newPlat.value.name;
     this.plat.price = newPlat.value.price;

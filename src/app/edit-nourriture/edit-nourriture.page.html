@@ -1,9 +1,49 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>editNourriture</ion-title>
+    <ion-title>edit-page</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-
+  <form #newPlat="ngForm" (ngSubmit)="editPlat(newPlat)">
+    <ion-item>
+      <ion-input required type="text" [value]="plats?.name" name="name" ngModel></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input required type="number" value="{{plats?.price}}" name="price" ngModel></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Type de plat</ion-label>
+      <ion-select name="type_dish" value="{{plats?.type_dish}}" ngModel>
+        <ion-select-option value="Entrée">Entrée</ion-select-option>
+        <ion-select-option value="Plat">Plat</ion-select-option>
+        <ion-select-option value="Dessert">Dessert</ion-select-option>
+        <ion-select-option value="Boisson">Boisson</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Température</ion-label>
+      <ion-select name="temp" value="{{plats?.temp}}" ngModel>
+        <ion-select-option value="Froid">Froid</ion-select-option>
+        <ion-select-option value="Chaud">Chaud</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-input required type="text" value="{{plats?.ingredients}}" name="ingredients" ngModel></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input required type="text" value="{{plats?.image}}" name="image" ngModel></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input required type="date" value="{{plats?.date}}" name="date" ngModel></ion-input>
+    </ion-item>
+    <div text-center><ion-button ion-button round text-center type="submit">Enregistrer</ion-button></div>
+  </form>
 </ion-content>
+
+<ion-footer>
+  <ion-item routerLink="/home">
+    <ion-icon name="arrow-dropleft"></ion-icon>
+  </ion-item>
+</ion-footer>
+

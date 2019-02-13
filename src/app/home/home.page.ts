@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 
 import {AlertController, NavController} from '@ionic/angular';
+import { Menu } from 'src/models/Menu';
+import { InventoryServiceService } from '../inventory-service.service';
 
 @Component({
   selector: 'app-home',
@@ -8,5 +10,23 @@ import {AlertController, NavController} from '@ionic/angular';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  menus: Menu[];
+  imgMenuArray : string[] = [];
+  menuToDisplay : Object = {};
+  constructor(private Inventory: InventoryServiceService) { }
 
+  ngOnInit() {
+    this.getMenuArray();
+  }
+  getMenuArray() {
+      this.Inventory.getMenuFromDb().then((data: Menu[]) => { this.menus = data; })
+      .then(()=>{
+        this.menus.forEach((menu)=>{
+          this.Inventory.getOneNourritureFromDb("Plats", menu.plat)
+          .then((plat)=>{
+              menu.imgUrl = plat.imgUrl;
+          })
+        })
+      })
+  }
 }

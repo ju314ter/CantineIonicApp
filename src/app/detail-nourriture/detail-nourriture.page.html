@@ -1,9 +1,191 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>detailNourriture</ion-title>
+    <ion-title>TITLE</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+<div *ngIf="entree">
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12><img src="{{ entree?.imgUrl }}" alt="{{ entree?.imgUrl }}"></ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-card>
+
+    <ion-card-content>
+
+      <ion-slides pager="true">
+
+        <ion-slide>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12">
+                <ion-card-header>
+                  Informations
+                </ion-card-header>
+              </ion-col>
+              <ion-col size="12">
+                <ion-list>
+                  <ion-item>
+                    <ion-icon name="clipboard"></ion-icon> <b>{{ entree?.type }}</b>
+                  </ion-item>
+                  <ion-item>
+                    <ion-icon name="logo-euro"></ion-icon> <b>{{ entree?.price }} €</b>
+                  </ion-item>
+                  <ion-item>
+                    <ion-icon name="thermometer"></ion-icon> {{ entree?.temp }}
+                  </ion-item>
+                </ion-list>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-slide>
+        <ion-slide>
+          <ion-card-header>
+            Ingrédients
+          </ion-card-header>
+          <ion-list>
+            <ion-item *ngFor="let ingredient of entree?.ingredients">
+              <ion-label>{{ ingredient }}</ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-slide>
+
+      </ion-slides>
+
+
+
+
+    </ion-card-content>
+  </ion-card>
+
+  <div text-center><ion-button ion-button round text-center type="submit" (click)="addPanier(entree)"> <ion-icon name="cart"></ion-icon> Ajouter au panier</ion-button></div>
+</div>
+
+  <div *ngIf="plat">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12><img src="{{ plat?.imgUrl }}" alt="{{ plat?.imgUrl }}"></ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-card>
+
+      <ion-card-content>
+
+        <ion-slides pager="true">
+
+          <ion-slide>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12">
+                  <ion-card-header>
+                    Informations
+                  </ion-card-header>
+                </ion-col>
+                <ion-col size="12">
+                  <ion-list>
+                    <ion-item>
+                      <ion-icon name="clipboard"></ion-icon> <b>{{ plat?.type }}</b>
+                    </ion-item>
+                    <ion-item>
+                      <ion-icon name="logo-euro"></ion-icon> <b>{{ plat?.price }} €</b>
+                    </ion-item>
+                    <ion-item>
+                      <ion-icon name="thermometer"></ion-icon> {{ plat?.temp }}
+                    </ion-item>
+                  </ion-list>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-slide>
+          <ion-slide>
+            <ion-card-header>
+              Ingrédients
+            </ion-card-header>
+            <ion-list>
+              <ion-item *ngFor="let ingredient of plat?.ingredients">
+                <ion-label>{{ ingredient }}</ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-slide>
+
+        </ion-slides>
+
+
+
+
+      </ion-card-content>
+    </ion-card>
+
+    <div text-center><ion-button ion-button round text-center type="submit" (click)="addPanier(plat)"> <ion-icon name="cart"></ion-icon> Ajouter au panier</ion-button></div>
+  </div>
+
+  <div *ngIf="dessert">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12><img src="{{ dessert?.imgUrl }}" alt="{{ dessert?.imgUrl }}"></ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-card>
+
+      <ion-card-content>
+
+        <ion-slides pager="true">
+
+          <ion-slide>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12">
+                  <ion-card-header>
+                    Informations
+                  </ion-card-header>
+                </ion-col>
+                <ion-col size="12">
+                  <ion-list>
+                    <ion-item>
+                      <ion-icon name="clipboard"></ion-icon> <b>{{ dessert?.type }}</b>
+                    </ion-item>
+                    <ion-item>
+                      <ion-icon name="logo-euro"></ion-icon> <b>{{ dessert?.price }} €</b>
+                    </ion-item>
+                    <ion-item>
+                      <ion-icon name="thermometer"></ion-icon> {{ dessert?.temp }}
+                    </ion-item>
+                  </ion-list>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-slide>
+          <ion-slide>
+            <ion-card-header>
+              Ingrédients
+            </ion-card-header>
+            <ion-list>
+              <ion-item *ngFor="let ingredient of dessert?.ingredients">
+                <ion-label>{{ ingredient }}</ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-slide>
+
+        </ion-slides>
+
+
+
+
+      </ion-card-content>
+    </ion-card>
+
+    <div text-center><ion-button ion-button round text-center type="submit" (click)="addPanier(dessert)"> <ion-icon name="cart"></ion-icon> Ajouter au panier</ion-button></div>
+  </div>
 
 </ion-content>
+
+<ion-footer>
+  <ion-item routerLink="/carte-nourriture">
+    <ion-icon name="arrow-dropleft"></ion-icon>
+  </ion-item>
+</ion-footer>

@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Créer un menu</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+<!--  <ion-label>Entrée</ion-label>
+  <ion-checkbox color="primary"></ion-checkbox>
+
+  <ion-label>Plat</ion-label>
+  <ion-checkbox color="secondary"></ion-checkbox>
+
+  <ion-label>Dessert</ion-label>
+  <ion-checkbox color="danger"></ion-checkbox>
+
+  <ion-label>Boisson</ion-label>
+  <ion-checkbox color="light"></ion-checkbox>-->
+  <form #newMenu="ngForm" (ngSubmit)="addMenu(newMenu)">
+    <ion-item>
+      <ion-label>Entrée</ion-label>
+      <ion-select name="entree" ngModel>
+        <ion-select-option *ngFor="let entree of entrees" [value]="entree.id">{{ entree.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Plat</ion-label>
+      <ion-select name="plat" ngModel>
+        <ion-select-option *ngFor="let plat of plats" [value]="plat.id">{{ plat.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Dessert</ion-label>
+      <ion-select name="dessert" ngModel>
+        <ion-select-option *ngFor="let dessert of desserts" [value]="dessert.id">{{ dessert.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Boisson</ion-label>
+      <ion-select name="boisson" ngModel>
+        <ion-select-option *ngFor="let boisson of boissons" [value]="boisson.id">{{ boisson.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+<!--    <ion-list>
+      <ion-label>Boisson</ion-label>
+      <ion-item *ngFor="let boisson of boissons">
+        <ion-label>{{ boisson.name }}</ion-label>
+        <ion-checkbox slot="end"></ion-checkbox>
+      </ion-item>
+    </ion-list>
+  </ion-list>-->
+
+    <ion-item>
+      <ion-input required type="text" name="name" placeholder="Nom du menu" ngModel></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input required type="date" name="date" placeholder="Date de disponibilité" ngModel></ion-input>
+    </ion-item>
+    <div text-center><ion-button ion-button round text-center type="submit">Enregistrer</ion-button></div>
+  </form>
+</ion-content>

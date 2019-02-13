@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-select placeholder="Selectionner le type de produit" [(ngModel)]="selectedNourriture" (ionChange)="showForm($event)">
+  <ion-select placeholder="Selectionner le type de produit" [(ngModel)]="selectedNourriture">
     <ion-select-option value="p">Plat</ion-select-option>
     <ion-select-option value="e">Entrée</ion-select-option>
     <ion-select-option value="d">Dessert</ion-select-option>
@@ -13,7 +13,7 @@
     <ion-select-option value="b">Boisson</ion-select-option>
   </ion-select>
 
-  <form #newPlat="ngForm" (ngSubmit)="addPlat(newPlat)" *ngIf="selectedForm == 'p'">
+  <form #newPlat="ngForm" (ngSubmit)="addPlat(newPlat)" *ngIf="selectedNourriture == 'p'">
     <ion-toolbar>
       <ion-title>Ajout d'un plat</ion-title>
     </ion-toolbar>
@@ -46,7 +46,7 @@
       <div text-center><ion-button ion-button round text-center type="submit">Enregistrer</ion-button></div>
   </form>
 
-  <form #newDessert="ngForm" (ngSubmit)="addDessert(newDessert)" *ngIf="selectedForm == 'd'">
+  <form #newDessert="ngForm" (ngSubmit)="addDessert(newDessert)" *ngIf="selectedNourriture == 'd'">
       <ion-toolbar>
           <ion-title>Ajout d'un dessert</ion-title>
         </ion-toolbar>
@@ -73,7 +73,7 @@
       <div text-center><ion-button ion-button round text-center type="submit">Enregistrer</ion-button></div>
   </form>
 
-  <form #newBoisson="ngForm" (ngSubmit)="addBoisson(newBoisson)" *ngIf="selectedForm == 'b'">
+  <form #newBoisson="ngForm" (ngSubmit)="addBoisson(newBoisson)" *ngIf="selectedNourriture == 'b'">
       <ion-toolbar>
           <ion-title>Ajout d'une boisson</ion-title>
         </ion-toolbar>
@@ -102,7 +102,7 @@
       <div text-center><ion-button ion-button round text-center type="submit">Enregistrer</ion-button></div>
   </form>
 
-  <form #newSnack="ngForm" (ngSubmit)="addSnack(newSnack)" *ngIf="selectedForm == 's'">
+  <form #newSnack="ngForm" (ngSubmit)="addSnack(newSnack)" *ngIf="selectedNourriture == 's'">
       <ion-toolbar>
           <ion-title>Ajout d'un snack</ion-title>
         </ion-toolbar>
@@ -129,7 +129,7 @@
       <div text-center><ion-button ion-button round text-center type="submit">Enregistrer</ion-button></div>
   </form>
 
-  <form #newEntree="ngForm" (ngSubmit)="addEntree(newEntree)" *ngIf="selectedForm == 'e'">
+  <form #newEntree="ngForm" (ngSubmit)="addEntree(newEntree)" *ngIf="selectedNourriture == 'e'">
       <ion-toolbar>
           <ion-title>Ajout d'une entrée</ion-title>
         </ion-toolbar>

@@ -42,7 +42,6 @@ export class AppComponent {
     this.initializeApp();
     
     (localStorage.getItem('user'))? this.userConnected = true : this.userConnected = false;
-    console.log(this.userConnected)
   }
 
   logout(){
