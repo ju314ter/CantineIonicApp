@@ -28,17 +28,12 @@ export class CarteNourriturePage implements OnInit {
   snacks: Snack[];
 
   selectedNourriture: string = "p";
-  isUserAdmin: boolean = false;
   user : Object = {};
   constructor(private Inventory: InventoryServiceService) { }
 
   ngOnInit() {
     this.getNourritureArray();
     this.user = JSON.parse(localStorage.getItem('user'));
-    // console.log(user)
-    // if(user.isAdmin){
-    //   console.log("it's true ! :D")
-    // }
   }
 
   changeDisplay($event){
