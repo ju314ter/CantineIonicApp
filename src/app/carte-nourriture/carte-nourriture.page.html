@@ -45,7 +45,7 @@
         <ion-card-title>{{ nourriture.name }}</ion-card-title>
       </ion-card-header>
       <div text-center *ngIf="user.isAdmin">
-        <ion-button color="light" outline [routerLink]="['/edit-page', nourriture.id]" routerDirection="forward">modifier</ion-button>
+        <ion-button color="light" outline [routerLink]="['/edit-nourriture', nourriture.id, nourriture.type]" routerDirection="forward">modifier</ion-button>
         <ion-button color="danger" outline (click)="deleteNourriture(nourriture.id, nourriture.type)">supprimer</ion-button>
       </div>
     </ion-card>
@@ -59,7 +59,7 @@
         <ion-card-title>{{ nourriture.name }}</ion-card-title>
       </ion-card-header>
       <div text-center *ngIf="user.isAdmin">
-        <ion-button color="light" outline [routerLink]="['/edit-page', nourriture.id]" routerDirection="forward">modifier</ion-button>
+        <ion-button color="light" outline [routerLink]="['/edit-nourriture', nourriture.id, nourriture.type]" routerDirection="forward">modifier</ion-button>
         <ion-button color="danger" outline (click)="deleteNourriture(nourriture.id, nourriture.type)">supprimer</ion-button>
       </div>
     </ion-card>
@@ -73,7 +73,7 @@
         <ion-card-title>{{ nourriture.name }}</ion-card-title>
       </ion-card-header>
       <div text-center *ngIf="user.isAdmin">
-        <ion-button color="light" outline [routerLink]="['/edit-page', nourriture.id]" routerDirection="forward">modifier</ion-button>
+        <ion-button color="light" outline [routerLink]="['/edit-nourriture', nourriture.id, nourriture.type]" routerDirection="forward">modifier</ion-button>
         <ion-button color="danger" outline (click)="deleteNourriture(nourriture.id, nourriture.type)">supprimer</ion-button>
       </div>
     </ion-card>
@@ -86,7 +86,7 @@
         <ion-card-title>{{ nourriture.name }}</ion-card-title>
       </ion-card-header>
       <div text-center *ngIf="user.isAdmin">
-        <ion-button color="light" outline [routerLink]="['/edit-page', nourriture.id]" routerDirection="forward">modifier</ion-button>
+        <ion-button color="light" outline [routerLink]="['/edit-nourriture', nourriture.id]" routerDirection="forward">modifier</ion-button>
         <ion-button color="danger" outline (click)="deleteNourriture(nourriture.id, nourriture.type)">supprimer</ion-button>
       </div>
     </ion-card>
@@ -99,7 +99,7 @@
         <ion-card-title>{{ nourriture.name }}</ion-card-title>
       </ion-card-header>
       <div text-center *ngIf="user.isAdmin">
-        <ion-button color="light" outline [routerLink]="['/edit-page', nourriture.id]" routerDirection="forward">modifier</ion-button>
+        <ion-button color="light" outline [routerLink]="['/edit-nourriture', nourriture.id]" routerDirection="forward">modifier</ion-button>
         <ion-button color="danger" outline (click)="deleteNourriture(nourriture.id, nourriture.type)">supprimer</ion-button>
       </div>
     </ion-card>

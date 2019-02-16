@@ -8,7 +8,7 @@ import { Dessert } from 'src/models/Dessert';
 import { Snack } from 'src/models/Snack';
 
 
-import { IonSlides } from '@ionic/angular';
+import {AlertController, IonSlides} from '@ionic/angular';
 
 @Component({
   selector: 'app-carte-nourriture',
@@ -28,8 +28,8 @@ export class CarteNourriturePage implements OnInit {
   snacks: Snack[];
 
   selectedNourriture: string = "p";
-  user : Object = {};
-  constructor(private Inventory: InventoryServiceService) { }
+  user: Object = {};
+  constructor(private Inventory: InventoryServiceService, private alertController: AlertController) { }
 
   ngOnInit() {
     this.getNourritureArray();
@@ -71,9 +71,30 @@ export class CarteNourriturePage implements OnInit {
     this.Inventory.getNourritureFromDb("Snacks").then((data : Snack[])=>{this.snacks = data;});
   }
 
-  deleteNourriture(id, type){
-    console.log(id);
-    console.log(type);
+  async deleteNourriture(key, type) {
+      type = type + 's';
+      const alert = await this.alertController.create({
+          header: 'Etes vous sûr ?!',
+          message: 'Voulez vous supprimer cela ?',
+          buttons: [
+              {
+                  text: 'Non',
+                  role: 'cancel',
+                  cssClass: 'secondary',
+                  handler: (blah) => {
+                      console.log('Confirm Cancel: blah');
+                  }
+              }, {
+                  text: 'Oui',
+                  handler: () => {
+                      this.Inventory.deleteNourriture(key, type);
+                      console.log('Confirm Okay');
+                      this.ngOnInit();
+                  }
+              }
+          ]
+      });
+      await alert.present();
   }
 
 }

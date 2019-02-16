@@ -20,11 +20,28 @@
         </ion-card-title>
         <ion-img *ngIf="menu.imgUrl" src="{{menu.imgUrl}}"></ion-img>
       </ion-header>
-      <ion-card-content>
+<!--      <ion-card-content>
 
-      </ion-card-content>
-      <div text-center><ion-button>Commander</ion-button></div>
+      </ion-card-content>-->
+      <div text-center *ngIf="!user.isAdmin">
+          <ion-button>Commander</ion-button>
+      </div>
+      <div text-center *ngIf="user.isAdmin">
+          <ion-button color="danger" outline (click)="deleteMenu(menu.id)">supprimer</ion-button>
+      </div>
     </ion-card>
   </ion-list>
-
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="user.isAdmin">
+    <ion-fab-button>
+      <ion-icon name="add-circle-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="start">
+      <ion-fab-button routerDirection="forward" [routerLink]="['/add-nourriture']">
+        <ion-icon name="pizza"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button routerDirection="forward" [routerLink]="['/add-menu']">
+        <ion-icon name="grid"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
 </ion-content>
