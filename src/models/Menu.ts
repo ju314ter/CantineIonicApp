@@ -10,10 +10,10 @@ export class Menu {
     dessert: string;
     snack: string;
     boisson: string;
-    date: Date;
+    date: Date[];
     id: string;
     imgUrl?: string;
-    constructor(name: string, date: Date, plat: string, entree: string, dessert?: string, snack?: string, boisson?: string, id?: string, imgUrl?: string) {
+    constructor(name: string, date: Date[], plat: string, entree: string, dessert?: string, snack?: string, boisson?: string, id?: string, imgUrl?: string) {
         this.name = name;
         this.entree = entree;
         this.plat = plat;

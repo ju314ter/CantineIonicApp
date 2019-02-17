@@ -56,8 +56,14 @@
     <ion-item>
       <ion-input required type="text" name="name" placeholder="Nom du menu" ngModel></ion-input>
     </ion-item>
+    <h3>DISPONIBILITE</h3>
     <ion-item>
-      <ion-input required type="date" name="date" placeholder="Date de disponibilité" ngModel></ion-input>
+      <ion-label>Date de début</ion-label>
+      <ion-input required type="date" name="date1" placeholder="Date de début" ngModel></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Date de fin</ion-label>
+      <ion-input required type="date" name="date2" placeholder="Date de fin" ngModel></ion-input>
     </ion-item>
     <div text-center><ion-button ion-button round text-center type="submit">Enregistrer</ion-button></div>
   </form>

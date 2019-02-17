@@ -68,7 +68,7 @@ export class AddNourriturePage implements OnInit {
     this.entree.temp = newEntree.value.temp;
     this.entree.ingredients = newEntree.value.ingredients.split(/\n/);
 
-    this.inventory.pushNourritureToDb<Entree>(this.entree)
+    this.inventory.pushNourritureToDb<Entree>(this.entree);
     this.router.navigateByUrl('/home');
   }
   addDessert(newDessert) {

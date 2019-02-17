@@ -43,11 +43,28 @@ export class AddMenuPage implements OnInit {
       this.menu.plat = form.value.plat;
       this.menu.dessert = form.value.dessert;
       this.menu.boisson = form.value.boisson;
-      this.menu.date = form.value.date;
-      /*this.menu.totalCost = this.menu.getPrice(form.value.entree, form.value.plat, form.value.dessert)*/
-
+      let dates = this.getDates(new Date(form.value.date1), new Date(form.value.date2));
+      this.menu.date = dates;
+/*        dates.forEach(function(date) {
+            console.log(date);
+        });*/
         this.Inventory.pushMenuToDb<Menu>(this.menu).then(() => {
             this.presentToast('Menu ajouté !');
         }).catch((err) => {console.log(err)});
     }
+    getDates(startDate, endDate) {
+        let dates = [],
+            currentDate = startDate,
+            addDays = function(days) {
+                let date = new Date(this.valueOf());
+                date.setDate(date.getDate() + days);
+                return date;
+            };
+        while (currentDate <= endDate) {
+            dates.push(currentDate);
+            currentDate = addDays.call(currentDate, 1);
+        }
+        return dates;
+    };
+
 }

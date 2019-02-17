@@ -47,10 +47,7 @@ export class InventoryServiceService {
    */
   private handleError<T>(operation = "operation", result?: T) {
     return (error: any): Observable<T> => {
-      // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
       console.log(`${operation} failed: ${error.message}`);
 
       // Let the app keep running by returning an empty result.
@@ -298,6 +295,26 @@ export class InventoryServiceService {
         }
     });
 }
+    updateNourritureToDb(key, type, nourriture): Promise<any> {
+/*      nourriture.type = type;*/
+      let nourritureJson = JSON.parse(JSON.stringify(nourriture));
+      return new Promise((res, rej) => {
+          this.cantineappdb
+              .collection('Inventaire')
+              .doc('Nourriture')
+              .collection(type)
+              .doc(key)
+              .set({nourritureJson})
+              .then(function () {
+                  console.log('Document modifé !');
+                  res();
+              })
+              .catch(function (error) {
+                  rej();
+                  this.handleError(error);
+              });
+      });
+}
 pushMenuToDb<Menu>(menu: Menu) {
     let menuJson = JSON.parse(JSON.stringify(menu));
     console.log(menuJson);
@@ -360,9 +377,30 @@ getOneMenuFromDb(key: string): Promise<any> {
             });
     });
 }
+deleteMenu(key: string) {
+    this.cantineappdb
+        .collection('Inventaire')
+            .doc('Menu')
+                .collection('Menu')
+                    .doc(key)
+                        .delete()
+                            .then(function() {
+                                console.log('Document successfully deleted!');
+                            }).catch(function(error) {
+                                console.error('Error removing document: ', error);
+                            });
 }
-
-//TODO: Faire le crud pour les menus et les afficher sur la home page en fonction de la date du jour. C'est le plus urgent.
-//TODO: Après le crud pour les users avec l'authentification, l'ajout d'un panier avec un historique des commandes.
-//TODO: Puis intégrer tout notre code à ce qu'on a déjà sur le site. Et pendant ce temps là que JB code le backend et remplace les connections à firebase par des connection au backend.
-//TODO:Et la on aura tout juste un mvp et je suis sur qu'il restera plein de truc à améliorer niveau design et ux.
+    deleteNourriture(key, type) {
+        this.cantineappdb
+            .collection('Inventaire')
+            .doc('Nourriture')
+            .collection(type)
+            .doc(key)
+            .delete()
+            .then(function() {
+                console.log('Document successfully deleted!');
+            }).catch(function(error) {
+            console.error('Error removing document: ', error);
+        });
+    }
+}

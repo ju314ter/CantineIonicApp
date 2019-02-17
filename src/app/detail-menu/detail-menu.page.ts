@@ -51,7 +51,6 @@ export class DetailMenuPage implements OnInit {
           this.Inventory.getOneNourritureFromDb('Boissons', this.boissonKey).then((data: Boisson) => this.boisson = data);
       }
   }
-  //TODO: Faire afficher le prix total du menu
   getTotalPrice(entree, plat, dessert?, boisson?) {
       let totalCost = entree.price + plat.price + (dessert ? dessert.price : 0) + (boisson ? boisson.price : 0);
       return totalCost;
