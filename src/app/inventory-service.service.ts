@@ -343,7 +343,7 @@ getMenuFromDb(): Promise<any> {
         this.menuCollection.ref.get().then(data => {
             let menuArray: Menu[] = [];
             data.docs.forEach(doc => {
-                let menu = new Menu('', new Date(), '', '', '', '', '');
+                let menu = new Menu('', [''], '', '', '', '', '');
                 menu.name = doc.data().menuJson.name;
                 menu.entree = doc.data().menuJson.entree;
                 menu.plat = doc.data().menuJson.plat;
@@ -366,7 +366,7 @@ getOneMenuFromDb(key: string): Promise<any> {
     return new Promise((resolve) => {
         this.menuDocument.ref.get()
             .then((doc) => {
-                let menu = new Menu('', new Date(), '', '', '', '', '');
+                let menu = new Menu('', [''], '', '', '', '', '');
                 menu.name = doc.data().menuJson.name;
                 menu.entree = doc.data().menuJson.entree;
                 menu.plat = doc.data().menuJson.plat;
