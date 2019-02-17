@@ -105,11 +105,18 @@
     </ion-card>
   </div>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="user.isAdmin">
-    <ion-fab-button routerDirection="forward" [routerLink]="['/add-nourriture']">
-      <ion-icon name="add"></ion-icon>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="add-circle-outline"></ion-icon>
     </ion-fab-button>
+    <ion-fab-list side="start">
+      <ion-fab-button routerDirection="forward" [routerLink]="['/add-nourriture']">
+        <ion-icon name="pizza"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button routerDirection="forward" [routerLink]="['/add-menu']">
+        <ion-icon name="grid"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
   </ion-fab>
-
 
 </ion-content>

@@ -19,14 +19,14 @@ export class HomePage {
     this.getMenuArray();
   }
   getMenuArray() {
-      this.Inventory.getMenuFromDb().then((data: Menu[]) => { this.menus = data; })
-      .then(()=>{
-        this.menus.forEach((menu)=>{
+      this.Inventory.getMenuFromDb().then((data: Menu[]) => {
+          data.forEach((menu)=>{
           this.Inventory.getOneNourritureFromDb("Plats", menu.plat)
           .then((plat)=>{
-              menu.imgUrl = plat.imgUrl;
+            menu.imgUrl = plat.imgUrl;
+            this.menus = data;
           })
-        })
+         })
       })
   }
 }
