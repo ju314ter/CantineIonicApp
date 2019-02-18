@@ -17,17 +17,22 @@ export class AppComponent {
     {
       title: 'Home',
       url: '/home',
-      icon: 'home'
+      icon: 'grid'
     },
     {
       title: 'La carte',
       url: '/carte-nourriture',
-      icon: 'list'
+      icon: 'pizza'
     },
     {
       title: 'Historique',
       url: '/historique-commande',
-      icon: 'list'
+      icon: 'bookmarks'
+    },
+    {
+      title: 'Panier',
+      url: '/panier-page',
+      icon: 'basket'
     }
   ];
 

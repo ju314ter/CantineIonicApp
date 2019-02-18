@@ -23,8 +23,8 @@
 <!--      <ion-card-content>
 
       </ion-card-content>-->
-      <div text-center *ngIf="!user.isAdmin">
-          <ion-button>Commander</ion-button>
+      <div text-center>
+        <ion-button (click)="addMenuToPanier(menu)">Ajouter au panier</ion-button>
       </div>
       <div text-center *ngIf="user.isAdmin">
           <ion-button color="danger" outline (click)="deleteMenu(menu.id)">supprimer</ion-button>

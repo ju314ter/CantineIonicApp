@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar text-center>
+  <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -44,6 +44,7 @@
       <ion-card-header>
         <ion-card-title>{{ nourriture.name }}</ion-card-title>
       </ion-card-header>
+      <div text-center><ion-button (click)="addToCart(nourriture)">Ajouter au panier</ion-button></div>
       <div text-center *ngIf="user.isAdmin">
         <ion-button color="light" outline [routerLink]="['/edit-nourriture', nourriture.id, nourriture.type]" routerDirection="forward">modifier</ion-button>
         <ion-button color="danger" outline (click)="deleteNourriture(nourriture.id, nourriture.type)">supprimer</ion-button>
@@ -58,6 +59,7 @@
       <ion-card-header>
         <ion-card-title>{{ nourriture.name }}</ion-card-title>
       </ion-card-header>
+      <div text-center><ion-button (click)="addToCart(nourriture)">Ajouter au panier</ion-button></div>
       <div text-center *ngIf="user.isAdmin">
         <ion-button color="light" outline [routerLink]="['/edit-nourriture', nourriture.id, nourriture.type]" routerDirection="forward">modifier</ion-button>
         <ion-button color="danger" outline (click)="deleteNourriture(nourriture.id, nourriture.type)">supprimer</ion-button>
@@ -72,6 +74,7 @@
       <ion-card-header>
         <ion-card-title>{{ nourriture.name }}</ion-card-title>
       </ion-card-header>
+      <div text-center><ion-button (click)="addToCart(nourriture)">Ajouter au panier</ion-button></div>
       <div text-center *ngIf="user.isAdmin">
         <ion-button color="light" outline [routerLink]="['/edit-nourriture', nourriture.id, nourriture.type]" routerDirection="forward">modifier</ion-button>
         <ion-button color="danger" outline (click)="deleteNourriture(nourriture.id, nourriture.type)">supprimer</ion-button>
@@ -85,6 +88,7 @@
       <ion-card-header>
         <ion-card-title>{{ nourriture.name }}</ion-card-title>
       </ion-card-header>
+      <div text-center><ion-button (click)="addToCart(nourriture)">Ajouter au panier</ion-button></div>
       <div text-center *ngIf="user.isAdmin">
         <ion-button color="light" outline [routerLink]="['/edit-nourriture', nourriture.id]" routerDirection="forward">modifier</ion-button>
         <ion-button color="danger" outline (click)="deleteNourriture(nourriture.id, nourriture.type)">supprimer</ion-button>
@@ -98,6 +102,7 @@
       <ion-card-header>
         <ion-card-title>{{ nourriture.name }}</ion-card-title>
       </ion-card-header>
+      <div text-center><ion-button (click)="addToCart(nourriture)">Ajouter au panier</ion-button></div>
       <div text-center *ngIf="user.isAdmin">
         <ion-button color="light" outline [routerLink]="['/edit-nourriture', nourriture.id]" routerDirection="forward">modifier</ion-button>
         <ion-button color="danger" outline (click)="deleteNourriture(nourriture.id, nourriture.type)">supprimer</ion-button>

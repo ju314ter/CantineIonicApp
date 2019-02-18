@@ -20,7 +20,7 @@ export class AddMenuPage implements OnInit {
     boissons: Boisson[];
     entrees: Entree[];
     desserts: Dessert[];
-    menu = new Menu('', new Date(), '', '', '', '', '');
+    menu = new Menu('', [new Date(), new Date()], '', '', '', '', '');
   ngOnInit() {
     this.getNourritureArray();
   }

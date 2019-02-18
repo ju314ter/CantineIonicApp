@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import {AlertController, NavController} from '@ionic/angular';
 import { Menu } from 'src/models/Menu';
 import { InventoryServiceService } from '../inventory-service.service';
+import { PanierService } from '../panier.service';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,9 @@ export class HomePage {
   imgMenuArray : string[] = [];
   menuToDisplay : Object = {};
   user : Object = {};
-  constructor(private Inventory: InventoryServiceService, public alertController: AlertController) { }
+  constructor(private Inventory: InventoryServiceService,
+              public alertController: AlertController,
+              private panierService: PanierService) { }
 
   ngOnInit() {
     this.getMenuArray();
@@ -55,5 +58,8 @@ export class HomePage {
       });
 
       await alert.present();
+  }
+  addMenuToPanier(menu: Menu){
+        this.panierService.addMenuToPanier(menu)
   }
 }

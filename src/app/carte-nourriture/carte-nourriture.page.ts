@@ -9,6 +9,8 @@ import { Snack } from 'src/models/Snack';
 
 
 import {AlertController, IonSlides} from '@ionic/angular';
+import { Nourriture } from 'src/models/supermodels/Nourriture';
+import { PanierService } from '../panier.service';
 
 @Component({
   selector: 'app-carte-nourriture',
@@ -29,7 +31,9 @@ export class CarteNourriturePage implements OnInit {
 
   selectedNourriture: string = "p";
   user: Object = {};
-  constructor(private Inventory: InventoryServiceService, private alertController: AlertController) { }
+  constructor(private Inventory: InventoryServiceService,
+              private alertController: AlertController,
+              private panierService: PanierService) { }
 
   ngOnInit() {
     this.getNourritureArray();
@@ -97,4 +101,7 @@ export class CarteNourriturePage implements OnInit {
       await alert.present();
   }
 
+  addToCart(nourriture: Nourriture){
+    this.panierService.addPlatToPanier(nourriture);
+  }
 }
