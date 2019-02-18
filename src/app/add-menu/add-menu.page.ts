@@ -43,8 +43,7 @@ export class AddMenuPage implements OnInit {
       this.menu.plat = form.value.plat;
       this.menu.dessert = form.value.dessert;
       this.menu.boisson = form.value.boisson;
-      let dates = this.getDates(new Date(form.value.date1), new Date(form.value.date2));
-      this.menu.date = dates;
+      this.menu.date = this.getDates(new Date(form.value.date1), new Date(form.value.date2));
 /*        dates.forEach(function(date) {
             console.log(date);
         });*/
