@@ -11,12 +11,14 @@
 
 
 <ion-content class="no-scroll">
-  <h1 text-center>{{ currentDate }}</h1>
+  <h1 text-center>{{ currentDate | date : 'longDate'}}</h1>
   <ion-item>
     <ion-label>Date</ion-label>
-    <ion-datetime display-format="DD MMMM YYYY" (ionChange)="changeDate()" [(ngModel)]="day"></ion-datetime>
+    <ion-datetime display-format="DD MMMM YYYY" (ionChange)="changeDate()" [(ngModel)]="currentDate"></ion-datetime>
   </ion-item>
-  
+  <h2 *ngIf="menus.length === 0" text-center>
+    Aucun menu de disponible pour cette date :(
+  </h2>
     <ion-slides pager="true">
       <ion-slide *ngFor="let menu of menus">
         <ion-card>
