@@ -36,7 +36,6 @@ export class HistoriqueCommandePage implements OnInit {
         }
         this.achats.push(document);
       });
-      console.log(this.achats)
     });
     
   }

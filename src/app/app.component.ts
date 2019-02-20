@@ -33,6 +33,11 @@ export class AppComponent {
       title: 'Panier',
       url: '/panier-page',
       icon: 'basket'
+    },
+    {
+      title: 'Compte',
+      url: '/account',
+      icon: 'contact'
     }
   ];
 

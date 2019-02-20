@@ -76,11 +76,14 @@ export class UserService {
   }
 
   updateUserWithCredential(user){
+    if(user.id){
+      user.uid = user.id;
+    }
     const userRef = this.cantineappdb.doc(`/Utilisateurs/${user.uid}`)
 
     const data: User = {
       id : user.uid,
-      mailUser : user.email || null,
+      mailUser : user.email || user.mailUser || null,
       password : user.password || null,
       pseudo : user.pseudo || null,
       promotion : user.promotion || null,

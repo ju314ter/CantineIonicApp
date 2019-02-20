@@ -1,9 +1,31 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>account</ion-title>
+    <ion-title *ngIf="user.pseudo">Compte de {{user.pseudo}}</ion-title>
+    <ion-title *ngIf="!user.pseudo">Compte</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+
+  <ion-card text-center>
+    <ion-title>{{user.mailUser}}</ion-title>
+    <form #editUserForm="ngForm" (ngSubmit)="updateUser(editUserForm)">
+      <ion-item>
+        <ion-label>Pseudonyme : </ion-label>
+        <ion-input name="pseudoInput" [ngModel]="user?.pseudo" placeholder="{{user.pseudo}}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Promotion : </ion-label>
+        <ion-select name="promotionInput" [ngModel]="user?.promotion">
+          <ion-select-option value="MCDNT 5">MCDNT 5</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Crédit : </ion-label>
+        <div>{{user.credit || 0}}</div>
+      </ion-item>
+      <div text-center><ion-button type="submit">Modifier</ion-button></div>
+    </form>
+  </ion-card>
 
 </ion-content>
