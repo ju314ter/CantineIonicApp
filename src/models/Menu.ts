@@ -13,6 +13,7 @@ export class Menu {
     date: any[];
     id: string;
     imgUrl?: string;
+    price?: number;
     constructor(name: string, date: any[], plat: string, entree: string, dessert?: string, snack?: string, boisson?: string, id?: string, imgUrl?: string) {
         this.name = name;
         this.entree = entree;

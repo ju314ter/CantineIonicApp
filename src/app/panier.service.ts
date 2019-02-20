@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable, of } from "rxjs/index";
+import { Observable, of, empty } from "rxjs/index";
 import { map, tap, catchError } from "rxjs/internal/operators";
 
 import { Plat } from "../models/Plat";
@@ -62,6 +62,10 @@ export class PanierService {
   addPlatToPanier(plat: Nourriture){
       this.nourritureArray.push(plat)
   }
+  deletePlatFromPanier(plat:Nourriture){
+    let indexOfPlat = this.nourritureArray.indexOf(plat)
+    this.nourritureArray.splice(indexOfPlat);
+  }
 
   addMenuToPanier(menu: Menu){
       this.menuArray.push(menu)
@@ -72,33 +76,48 @@ export class PanierService {
     this.menuArray = [];
   }
 
+  calculerPrixPanier(): number{
+    let prixMenus: number = 0;
+    this.menuArray.forEach((menu)=>{
+      prixMenus+=menu.price
+    })
+
+    let prixNourritures: number = 0;
+    this.nourritureArray.forEach((nourriture) =>{
+      prixNourritures += nourriture.price
+    })
+    return prixMenus+prixNourritures;
+  }
+
   consumePanier(){
-    let panierRef = [];
+    let panierRef = {};
     let user=JSON.parse(localStorage.getItem('user'));
 
-    panierRef.push({idUser: user.id})
+    panierRef["idUser"]=user.id
+    panierRef["price"]= this.calculerPrixPanier();
+    panierRef["date"]= new Date();
 
     Object.entries(this.nourritureArray).forEach(([key, value])=>{
-      panierRef.push({idNourriture: value.id, nameNourriture: value.name})
+      panierRef[value.id] = value.name;
     })
     Object.entries(this.menuArray).forEach(([key, value])=>{
-      panierRef.push({idMenu: value.id, nameMenu: value.name})
+      panierRef[value.id] = value.name;
     })
 
-    let commande = JSON.parse(JSON.stringify(panierRef));
-    
+    let commande = panierRef;
+    console.log(commande)
     panierRef= [];
 
-    this.nourritureArray = [];
-    this.menuArray = [];
+    this.emptyPanier();
+
     return new Promise((res, rej) => {
-      if(commande.length != 0){
+      if(commande){
         this.cantineappdb
-          .collection("Commandes")
-          .add({commande})
-          .then(function() {
-            console.log("Commande envoyée!");
-            res();
+        .collection("Commandes")
+        .add(commande)
+        .then(function() {
+          console.log("Commande envoyée!");
+          res();
           })
           .catch(function(error) {
             rej();

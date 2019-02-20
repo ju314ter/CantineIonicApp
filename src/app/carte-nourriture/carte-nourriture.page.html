@@ -11,29 +11,29 @@
 
   <ion-slides scrollbar="true" [options]="slideOpts" (ionSlideDidChange)="changeDisplay($event)">
     <ion-slide style="background-color: bisque">
-      <ion-icon name="return-left" style='position: absolute; left: 15px;'></ion-icon>
+      <ion-icon (click)="back()" name="return-left" style='position: absolute; left: 15px;'></ion-icon>
       <h1>Plat</h1>
-      <ion-icon name="return-right" style='position: absolute; right: 15px;'></ion-icon>
+      <ion-icon (click)="next()" name="return-right" style='position: absolute; right: 15px;'></ion-icon>
     </ion-slide>
     <ion-slide style="background-color: lightgreen">
-      <ion-icon name="return-left" style='position: absolute; left: 15px;'></ion-icon>
+      <ion-icon (click)="back()" name="return-left" style='position: absolute; left: 15px;'></ion-icon>
       <h1>Entrée</h1>
-      <ion-icon name="return-right" style='position: absolute; right: 15px;'></ion-icon>
+      <ion-icon  (click)="next()" name="return-right" style='position: absolute; right: 15px;'></ion-icon>
     </ion-slide>
     <ion-slide style="background-color: antiquewhite">
-      <ion-icon name="return-left" style='position: absolute; left: 15px;'></ion-icon>
+      <ion-icon (click)="back()" name="return-left" style='position: absolute; left: 15px;'></ion-icon>
       <h1>Dessert</h1>
-      <ion-icon name="return-right" style='position: absolute; right: 15px;'></ion-icon>
+      <ion-icon (click)="next()" name="return-right" style='position: absolute; right: 15px;'></ion-icon>
     </ion-slide>
     <ion-slide style="background-color: lightsalmon">
-      <ion-icon name="return-left" style='position: absolute; left: 15px;'></ion-icon>
+      <ion-icon (click)="back()" name="return-left" style='position: absolute; left: 15px;'></ion-icon>
       <h1>Snack</h1>
-      <ion-icon name="return-right" style='position: absolute; right: 15px;'></ion-icon>
+      <ion-icon (click)="next()" name="return-right" style='position: absolute; right: 15px;'></ion-icon>
     </ion-slide>
     <ion-slide style="background-color: aquamarine">
-      <ion-icon name="return-left" style='position: absolute; left: 15px;'></ion-icon>
+      <ion-icon (click)="back()" name="return-left" style='position: absolute; left: 15px;'></ion-icon>
       <h1>Boisson</h1>
-      <ion-icon name="return-right" style='position: absolute; right: 15px;'></ion-icon>
+      <ion-icon (click)="next()" name="return-right" style='position: absolute; right: 15px;'></ion-icon>
     </ion-slide>
   </ion-slides>
 

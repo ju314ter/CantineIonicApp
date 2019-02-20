@@ -4,6 +4,7 @@ import { Nourriture } from 'src/models/supermodels/Nourriture';
 import { Menu } from 'src/models/Menu';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-panier',
@@ -12,16 +13,20 @@ import { AlertController } from '@ionic/angular';
 })
 export class PanierPage implements OnInit {
 
-  nourriturePanier: Nourriture[] = [];
+  prixPanier: number;
+  nourriturePanier: Nourriture[] = this.panierService.nourritureArray;
   menuPanier: Menu[] = [];
   isNourriturePanierEmpty: Boolean = false;
   isMenuPanierEmpty: Boolean = false;
+  nourritureSubscription : Subscription;
+  menuSubscription : Subscription;
+
 
   constructor(private panierService: PanierService, private router: Router, private alertCtrl: AlertController) { }
 
   ngOnInit() {
-
-    this.panierService.nourritureStore.subscribe((data) => {
+    this.prixPanier = this.panierService.calculerPrixPanier();
+    this.nourritureSubscription = this.panierService.nourritureStore.subscribe((data) => {
       if(data.length === 0) {
         this.isNourriturePanierEmpty = true;
       } else {
@@ -30,22 +35,31 @@ export class PanierPage implements OnInit {
         this.isNourriturePanierEmpty = false;
       }
     });
-    this.panierService.menuStore.subscribe((data) => {
+
+    this.menuSubscription = this.panierService.menuStore.subscribe((data) => {
       if(data.length === 0) {
         this.isMenuPanierEmpty = true;
       } else {
       this.menuPanier = data
       console.log(data)
-
       this.isMenuPanierEmpty = false;
       }
     })
   }
+  deletePlatFromPanier(plat){
+    console.log(plat)
+    this.panierService.deletePlatFromPanier(plat);
+    this.prixPanier = this.panierService.calculerPrixPanier();
+  }
 
   consumePanier(){
-    let commandeSucess : boolean;
-    this.panierService.consumePanier()
-    this.commandeEnvoyee();
+    
+    this.panierService.consumePanier().then(()=>{
+      this.isMenuPanierEmpty = true;
+      this.isNourriturePanierEmpty = true;
+      this.commandeEnvoyee();
+    }
+    )
   }
   async commandeEnvoyee() {
     const alert = await this.alertCtrl.create({

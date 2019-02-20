@@ -295,7 +295,7 @@ export class InventoryServiceService {
         }
     });
 }
-    updateNourritureToDb(key, type, nourriture): Promise<any> {
+  updateNourritureToDb(key, type, nourriture): Promise<any> {
 /*      nourriture.type = type;*/
       let nourritureJson = JSON.parse(JSON.stringify(nourriture));
       return new Promise((res, rej) => {
@@ -315,7 +315,7 @@ export class InventoryServiceService {
               });
       });
 }
-pushMenuToDb<Menu>(menu: Menu) {
+  pushMenuToDb<Menu>(menu: Menu) {
     let menuJson = JSON.parse(JSON.stringify(menu));
     console.log(menuJson);
     return new Promise((res, rej) => {
@@ -334,7 +334,7 @@ pushMenuToDb<Menu>(menu: Menu) {
             });
     });
 }
-getMenuFromDb(currentDate): Promise<any> {
+  getMenuFromDb(currentDate): Promise<any> {
     this.menuCollection = this.cantineappdb
         .collection('Inventaire')
         .doc('Menu')
@@ -354,6 +354,7 @@ getMenuFromDb(currentDate): Promise<any> {
                         menu.dessert = doc.data().menuJson.dessert;
                         menu.boisson = doc.data().menuJson.boisson;
                         menu.date = doc.data().menuJson.date;
+                        menu.price = doc.data().menuJson.price;
                         menu.id = doc.id;
                         menuArray.push(menu);
                     }
@@ -363,37 +364,7 @@ getMenuFromDb(currentDate): Promise<any> {
         });
     });
 }
-
-
-
-    /*getMenuFromDb(): Promise<any> {
-        this.menuCollection = this.cantineappdb
-            .collection('Inventaire')
-            .doc('Menu')
-            .collection('Menu');
-        return new Promise((resolve) => {
-            this.menuCollection.ref
-                .get().then(data => {
-                let menuArray: Menu[] = [];
-                data.docs.forEach(doc => {
-                    let menu = new Menu('', [ new Date(), new Date() ], '', '', '', '', '');
-                    menu.name = doc.data().menuJson.name;
-                    menu.entree = doc.data().menuJson.entree;
-                    menu.plat = doc.data().menuJson.plat;
-                    menu.dessert = doc.data().menuJson.dessert;
-                    menu.boisson = doc.data().menuJson.boisson;
-                    menu.date = doc.data().menuJson.date;
-                    menu.id = doc.id;
-                    menuArray.push(menu);
-                });
-                resolve(menuArray);
-            });
-        });
-    }*/
-
-
-
-getOneMenuFromDb(key: string): Promise<any> {
+  getOneMenuFromDb(key: string): Promise<any> {
     this.menuDocument = this.cantineappdb
         .collection('Inventaire')
         .doc('Menu')
@@ -409,11 +380,12 @@ getOneMenuFromDb(key: string): Promise<any> {
                 menu.dessert = doc.data().menuJson.dessert;
                 menu.boisson = doc.data().menuJson.boisson;
                 menu.date = doc.data().menuJson.date;
+                menu.price = doc.data().menuJson.price;
                 resolve(menu);
             });
     });
 }
-deleteMenu(key: string) {
+  deleteMenu(key: string) {
     this.cantineappdb
         .collection('Inventaire')
             .doc('Menu')
@@ -426,7 +398,7 @@ deleteMenu(key: string) {
                                 console.error('Error removing document: ', error);
                             });
 }
-    deleteNourriture(key, type) {
+  deleteNourriture(key, type) {
         this.cantineappdb
             .collection('Inventaire')
             .doc('Nourriture')
@@ -438,5 +410,6 @@ deleteMenu(key: string) {
             }).catch(function(error) {
             console.error('Error removing document: ', error);
         });
-    }
+}
+
 }

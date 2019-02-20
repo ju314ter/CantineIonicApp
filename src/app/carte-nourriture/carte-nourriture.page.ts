@@ -66,6 +66,12 @@ export class CarteNourriturePage implements OnInit {
       }
     });
   }
+  back(){
+    this.slides.slidePrev();
+  }
+  next(){
+    this.slides.slideNext();
+  }
 
   getNourritureArray(){
     this.Inventory.getNourritureFromDb("Boissons").then((data: Boisson[])=>{this.boissons = data;});

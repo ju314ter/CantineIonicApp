@@ -11,29 +11,12 @@
 
 
 <ion-content class="no-scroll">
-  <h1 text-center>{{ currentDate | date : 'longDate' }}</h1>
+  <h1 text-center>{{ currentDate }}</h1>
   <ion-item>
     <ion-label>Date</ion-label>
     <ion-datetime display-format="DD MMMM YYYY" (ionChange)="changeDate()" [(ngModel)]="day"></ion-datetime>
   </ion-item>
-<!--    <ion-card style="margin-bottom: 50px;" *ngFor="let menu of menus">
-      <ion-header [routerLink]="['/detail-menu', menu.id, menu.entree, menu.plat, menu.dessert, menu.boisson]"
-      routerDirection="forward">
-        <ion-card-title style="margin-bottom: 10px;" text-center>
-          {{ menu.name }}
-        </ion-card-title>
-        <ion-img *ngIf="menu.imgUrl" src="{{menu.imgUrl}}"></ion-img>
-      </ion-header>
-&lt;!&ndash;      <ion-card-content>
-
-      </ion-card-content>&ndash;&gt;
-      <div text-center>
-        <ion-button (click)="addMenuToPanier(menu)">Ajouter au panier</ion-button>
-      </div>
-      <div text-center *ngIf="user.isAdmin">
-          <ion-button color="danger" outline (click)="deleteMenu(menu.id)">supprimer</ion-button>
-      </div>
-    </ion-card>-->
+  
     <ion-slides pager="true">
       <ion-slide *ngFor="let menu of menus">
         <ion-card>

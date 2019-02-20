@@ -4,10 +4,12 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
 
-    <ion-title>historiqueCommande</ion-title>
+    <ion-title>Historique des achats</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-
+  <ion-list *ngFor="let achat of achats">
+    {{achat}}
+  </ion-list>
 </ion-content>

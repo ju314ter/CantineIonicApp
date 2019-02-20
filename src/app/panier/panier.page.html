@@ -23,7 +23,7 @@
           </ion-avatar>
           <p>{{extra.name}}</p>
         </ion-chip>
-        <ion-button><ion-icon name="trash"></ion-icon></ion-button>
+        <ion-button (click)="deletePlatFromPanier(extra)"><ion-icon name="trash"></ion-icon></ion-button>
       </ion-item>
     </ion-list>
   </div>
@@ -46,7 +46,7 @@
   <div text-center *ngIf="!isNourriturePanierEmpty || !isMenuPanierEmpty">
     <ion-item>
       <ion-title>Prix :</ion-title>
-      <h1>0</h1>
+      <h1>{{prixPanier}}</h1>
       <ion-icon name="logo-euro"></ion-icon>
     </ion-item>
     <ion-button (click)="consumePanier()">Valider mon panier</ion-button>
