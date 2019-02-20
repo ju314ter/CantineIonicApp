@@ -1,7 +1,7 @@
 import { Nourriture } from "./supermodels/Nourriture";
 
 export class Boisson extends Nourriture {
-  temp: Boolean;
+  temp: boolean;
   constructor(
     name: string,
     price: number,
@@ -10,7 +10,7 @@ export class Boisson extends Nourriture {
     imgUrl: string,
     type: string,
     temp: boolean,
-    id?: String
+    id?: string
   ) {
     super(name, price, isAvailableOffMenu, availableQuanity, imgUrl, type, id);
     this.temp = temp;

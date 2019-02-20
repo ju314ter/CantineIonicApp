@@ -1,7 +1,7 @@
 import { Nourriture } from "./supermodels/Nourriture";
 
 export class Snack extends Nourriture {
-  type: String;
+  type: string;
   isSalty: Boolean;
   constructor(
     name: string,

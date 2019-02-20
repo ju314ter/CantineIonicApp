@@ -53,22 +53,6 @@ export class UserService {
     return this.cantineAuth.auth.createUserWithEmailAndPassword(user.mailUser, user.password)
     .then(credential => { return this.updateUserWithCredential(credential.user) })
     .catch()
-
-    // let userJson = JSON.parse(JSON.stringify(user));
-    // console.log(userJson);
-
-    // return new Promise((res, rej) => {
-    //   this.cantineappdb
-    //     .collection("Utilisateurs")
-    //     .add({ userJson })
-    //     .then(function() {
-    //       console.log("Document utilisateur ajouté!");
-    //       res();
-    //     })
-    //     .catch(function(error) {
-    //       rej();
-    //     });
-    // });
   }
 
   connecterUser(user: User) {
@@ -82,26 +66,6 @@ export class UserService {
     })
     
     })
-
-    // this.userCollection = this.cantineappdb.collection("Utilisateurs");
-
-    // let query = this.userCollection.ref.where("userJson.mailUser", "==", user.mailUser).where("userJson.password", "==", user.password);
-    
-    // return new Promise((res, rej) => {
-    //     query.get().then((docs)=>{
-    //       if(docs.empty){
-    //         rej("Logging failed")
-    //       } else {
-    //           docs.forEach((doc)=>{
-    //             let foundUser: User;
-    //             foundUser.id = doc.id;
-    //             foundUser.mailUser = doc.data().userJson.mailUser;
-    //             foundUser.password = doc.data().userJson.password;
-    //             res(foundUser)
-    //           })
-    //       }
-    //     });
-    // });
   }
 
   logOutUser(){

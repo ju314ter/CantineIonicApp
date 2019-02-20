@@ -1,11 +1,11 @@
 export class Nourriture {
-  name: String;
-  price: Number;
-  isAvailableOffMenu: Boolean;
-  availableQuantity: Number;
-  imgUrl: String;
-  type: String;
-  id: String;
+  name: string;
+  price: number;
+  isAvailableOffMenu: boolean;
+  availableQuantity: number;
+  imgUrl: string;
+  type: string;
+  id: string;
 
   constructor(name, price, isAvailableOffMenu, availableQuanity, imgUrl, type, id?) {
     this.name = name;

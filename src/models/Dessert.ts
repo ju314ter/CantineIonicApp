@@ -1,7 +1,7 @@
 import { Nourriture } from "./supermodels/Nourriture";
 
 export class Dessert extends Nourriture {
-  isFrozen: Boolean;
+  isFrozen: boolean;
   constructor(
     name: string,
     price: number,

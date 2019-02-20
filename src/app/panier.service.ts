@@ -73,11 +73,41 @@ export class PanierService {
   }
 
   consumePanier(){
+    let panierRef = [];
+    let user=JSON.parse(localStorage.getItem('user'));
+
+    panierRef.push({idUser: user.id})
+
     Object.entries(this.nourritureArray).forEach(([key, value])=>{
-      console.log(key, value)
+      panierRef.push({idNourriture: value.id, nameNourriture: value.name})
     })
+    Object.entries(this.menuArray).forEach(([key, value])=>{
+      panierRef.push({idMenu: value.id, nameMenu: value.name})
+    })
+
+    let commande = JSON.parse(JSON.stringify(panierRef));
+    
+    panierRef= [];
 
     this.nourritureArray = [];
     this.menuArray = [];
+    return new Promise((res, rej) => {
+      if(commande.length != 0){
+        this.cantineappdb
+          .collection("Commandes")
+          .add({commande})
+          .then(function() {
+            console.log("Commande envoyée!");
+            res();
+          })
+          .catch(function(error) {
+            rej();
+          });
+        }
+        else{
+          rej();
+        }  
+      });
+      
   }
 }

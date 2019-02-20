@@ -6,15 +6,15 @@ import { Menu } from "./Menu";
 import { Entree } from "./Entree";
 
 export class Panier {
-    mailUser : String;
+    mailUser : string;
     plats : Plat[];
     desserts : Dessert[];
     snacks : Snack[];
     boissons: Boisson[];
     entrees : Entree[];
-    totalCost : Number;
+    totalCost : number;
 
-    constructor(mailUser : String, dates: Date[], menus: Menu[],entrees?: Entree[], plats?: Plat[], desserts?: Dessert[], snacks? : Snack[], boissons?: Boisson[]){
+    constructor(mailUser : string, dates: Date[], menus: Menu[],entrees?: Entree[], plats?: Plat[], desserts?: Dessert[], snacks? : Snack[], boissons?: Boisson[]){
         this.plats = plats;
         this.desserts = desserts;
         this.entrees = entrees;

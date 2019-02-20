@@ -1,9 +1,9 @@
 import { Nourriture } from "./supermodels/Nourriture";
 
 export class Entree extends Nourriture {
-  description: String;
-  ingredients: String[];
-  temp: Boolean;
+  description: string;
+  ingredients: string[];
+  temp: boolean;
   constructor(
     ingredients: string[],
     name: string,
@@ -13,8 +13,8 @@ export class Entree extends Nourriture {
     imgUrl: string,
     description: string,
     temp: boolean,
-    type : String,
-    id?: String,
+    type : string,
+    id?: string,
   ) {
     super(name, price, isAvailableOffMenu, availableQuanity, imgUrl, type, id);
 
