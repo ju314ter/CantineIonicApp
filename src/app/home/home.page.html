@@ -19,15 +19,18 @@
   <h2 *ngIf="menus.length === 0" text-center>
     Aucun menu de disponible pour cette date :(
   </h2>
-    <ion-slides pager="true">
-      <ion-slide *ngFor="let menu of menus">
+    <ion-slides scrollbar="true" [options]="slideOpts">
+      <ion-slide  *ngFor="let menu of menus">
         <ion-card>
-          <ion-header [routerLink]="['/detail-menu', menu.id, menu.entree, menu.plat, menu.dessert, menu.boisson]"
-                      routerDirection="forward">
-            <ion-card-title style="margin-bottom: 10px;" text-center>
-              {{ menu.name }}
+          <ion-header>
+          <ion-card-title style="margin-bottom: 10px;" text-center>
+            <ion-icon (click)="previousMenu()" name="return-left" style="position: relative;top: 4px"></ion-icon>
+            {{ menu.name }}
+            <ion-icon (click)="nextMenu()" name="return-right" style="position: relative;top: 4px"></ion-icon>
             </ion-card-title>
-            <ion-img *ngIf="menu.imgUrl" src="{{menu.imgUrl}}" style="height: 300px; width: 300px;"></ion-img>
+            <ion-img *ngIf="menu.imgUrl" src="{{menu.imgUrl}}" style="height: 300px; width: 300px;"
+            [routerLink]="['/detail-menu', menu.id, menu.entree, menu.plat, menu.dessert, menu.boisson]"
+          routerDirection="forward"></ion-img>
           </ion-header>
         <ion-card-content>
 

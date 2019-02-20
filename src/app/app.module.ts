@@ -44,7 +44,6 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     IonicModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
-    AngularFirestoreModule.enablePersistence(),
     AngularFireAuthModule,
     AppRoutingModule,
   ],
