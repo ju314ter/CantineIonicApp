@@ -12,8 +12,8 @@ import { AlertController } from '@ionic/angular';
 })
 export class PanierPage implements OnInit {
 
-  nourriturePanier: Nourriture[] = []
-  menuPanier: Menu[] = []
+  nourriturePanier: Nourriture[] = [];
+  menuPanier: Menu[] = [];
   isNourriturePanierEmpty: Boolean = false;
   isMenuPanierEmpty: Boolean = false;
 
@@ -21,17 +21,17 @@ export class PanierPage implements OnInit {
 
   ngOnInit() {
 
-    this.panierService.nourritureStore.subscribe((data)=>{
-      if(data.length == 0){
+    this.panierService.nourritureStore.subscribe((data) => {
+      if(data.length === 0) {
         this.isNourriturePanierEmpty = true;
       } else {
         this.nourriturePanier = data;
         console.log(data)
         this.isNourriturePanierEmpty = false;
       }
-    })
-    this.panierService.menuStore.subscribe((data)=>{
-      if(data.length == 0){
+    });
+    this.panierService.menuStore.subscribe((data) => {
+      if(data.length === 0) {
         this.isMenuPanierEmpty = true;
       } else {
       this.menuPanier = data
