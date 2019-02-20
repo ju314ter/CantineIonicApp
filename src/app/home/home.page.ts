@@ -22,11 +22,7 @@ export class HomePage {
   user: Object = {};
   today = new Date();
   currentDate = this.formatDate(
-    this.today.getFullYear() +
-      "-" +
-      (this.today.getMonth() + 1) +
-      "-" +
-      this.today.getDate()
+    this.today.getFullYear() + "-" + (this.today.getMonth() + 1) + "-" + this.today.getDate()
   );
   constructor(
     private Inventory: InventoryServiceService,
@@ -49,7 +45,7 @@ export class HomePage {
     this.getMenuArray(this.currentDate);
     console.log(this.menus);
   }
-  formatDate(date) {
+    formatDate(date) {
     let isoDate = new Date(date).toISOString();
     return isoDate;
   }
@@ -57,9 +53,9 @@ export class HomePage {
       let currentDate = this.formatDate(new Date());
       let currentISODate = currentDate.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDay();
   }*/
-  getMenuArray(currenDate) {
+  getMenuArray(currentDate) {
     this.menus = [];
-    this.Inventory.getMenuFromDb(currenDate).then((data: Menu[]) => {
+    this.Inventory.getMenuFromDb(currentDate).then((data: Menu[]) => {
       data.forEach(menu => {
         this.Inventory.getOneNourritureFromDb("Plats", menu.plat).then(plat => {
           menu.imgUrl = plat.imgUrl;
