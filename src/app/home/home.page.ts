@@ -17,8 +17,7 @@ export class HomePage {
   menuToDisplay: Object = {};
   user: Object = {};
   today = new Date();
-  day: any;
-  currentDate = this.formatDate(this.today.getFullYear() + '-' + (this.today.getMonth() + 1) + '-' + this.today.getDay());
+  currentDate = this.formatDate(this.today.getFullYear() + '-' + (this.today.getMonth() + 1) + '-' + this.today.getDate());
   constructor(private Inventory: InventoryServiceService,
               public alertController: AlertController,
               private panierService: PanierService) { }
@@ -28,7 +27,7 @@ export class HomePage {
     this.user = JSON.parse(localStorage.getItem('user'));
   }
   changeDate() {
-    this.currentDate = this.formatDate(new Date(this.day));
+    this.currentDate = this.formatDate(new Date(this.currentDate));
     this.getMenuArray(this.currentDate);
     console.log(this.menus);
   }
