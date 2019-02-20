@@ -1,6 +1,6 @@
 import { Component, ViewChild } from "@angular/core";
 
-import { AlertController, NavController, IonSlides } from "@ionic/angular";
+import {AlertController, NavController, IonSlides, ToastController} from '@ionic/angular';
 import { Menu } from "src/models/Menu";
 import { InventoryServiceService } from "../inventory-service.service";
 import { PanierService } from "../panier.service";
@@ -21,18 +21,30 @@ export class HomePage {
   menuToDisplay: Object = {};
   user: Object = {};
   today = new Date();
-  currentDate = this.formatDate(
-    this.today.getFullYear() + "-" + (this.today.getMonth() + 1) + "-" + this.today.getDate()
-  );
+  currentDate = this.formatDate(this.today);
   constructor(
     private Inventory: InventoryServiceService,
     public alertController: AlertController,
-    private panierService: PanierService
+    private panierService: PanierService,
+    private toastCtrl: ToastController
   ) {}
 
   ngOnInit() {
     this.getMenuArray(this.currentDate);
+    console.log(this.currentDate);
     this.user = JSON.parse(localStorage.getItem("user"));
+  }
+  formatDate(date) {
+      let YYYY = date.getFullYear();
+      let MM = date.getMonth() + 1;
+      let DD = date.getDate();
+      if (MM < 10) {
+          MM = '0' + MM;
+      }
+      if (DD < 10) {
+          DD = '0' + DD;
+      }
+      return YYYY + '-' + MM + '-' + DD;
   }
   previousMenu() {
     this.slides.slidePrev();
@@ -41,13 +53,9 @@ export class HomePage {
     this.slides.slideNext();
   }
   changeDate() {
-    this.currentDate = this.formatDate(new Date(this.currentDate));
+      console.log(this.currentDate);
+    /*this.currentDate = new Date(this.currentDate);*/
     this.getMenuArray(this.currentDate);
-    console.log(this.menus);
-  }
-    formatDate(date) {
-    let isoDate = new Date(date).toISOString();
-    return isoDate;
   }
   /*getTodayDate() {
       let currentDate = this.formatDate(new Date());
@@ -90,7 +98,18 @@ export class HomePage {
 
     await alert.present();
   }
-  addMenuToPanier(menu: Menu) {
-    this.panierService.addMenuToPanier(menu);
+    async presentToast(message) {
+        const toast = await this.toastCtrl.create({
+            message: message,
+            duration: 3000
+        });
+        toast.present();
+    }
+  addMenuToPanier(menu: Menu, date) {
+    this.panierService.addMenuToPanier(menu, date).then(() => {
+        this.presentToast('Menu ajouté au panier !');
+    }).catch(() => {
+        this.presentToast('Impossible d\'ajouter au panier');
+    });
   }
 }

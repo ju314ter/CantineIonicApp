@@ -33,6 +33,7 @@ export class EditNourriturePage implements OnInit {
     getItemsInMenu(key, type) {
       type = type + 's';
       this.Inventory.getOneNourritureFromDb(type, key).then((data: Entree) => this.nourriture = data);
+
     }
     updateNourriture(form) {
       switch (this.type) {

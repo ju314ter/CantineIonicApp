@@ -18,6 +18,8 @@ import {
 import { resolve } from "url";
 
 import { Menu } from "src/models/Menu";
+import {Pro} from '@ionic/pro';
+import {reject} from 'q';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -34,10 +36,12 @@ export class PanierService {
   nourritureArray: Nourriture[] = [];
   menuArray: Menu[] = [];
 
-  nourritureStore = of(this.nourritureArray)
-  menuStore = of(this.menuArray)
- 
-
+  nourritureStore = of(this.nourritureArray);
+  menuStore = of(this.menuArray);
+  heureDeFin = 12;
+  today = new Date();
+  currentDate = this.formatDate(this.today);
+  currentHour = this.today.getHours();
   constructor(
     private http: HttpClient,
     private cantineappdb: AngularFirestore
@@ -58,18 +62,44 @@ export class PanierService {
       return error;
     };
   }
- 
-  addPlatToPanier(plat: Nourriture){
-      this.nourritureArray.push(plat)
+    formatDate(date) {
+        let YYYY = date.getFullYear();
+        let MM = date.getMonth() + 1;
+        let DD = date.getDate();
+        if (MM < 10) {
+            MM = '0' + MM;
+        }
+        if (DD < 10) {
+            DD = '0' + DD;
+        }
+        return YYYY + '-' + MM + '-' + DD;
+    }
+  addPlatToPanier(plat: Nourriture): Promise<any> {
+    return new Promise((resolve, reject) => {
+      if (this.currentHour < this.heureDeFin) {
+          this.nourritureArray.push(plat);
+          resolve();
+      } else {
+        reject();
+      }
+    });
   }
   deletePlatFromPanier(plat:Nourriture){
-    let indexOfPlat = this.nourritureArray.indexOf(plat)
+    let indexOfPlat = this.nourritureArray.indexOf(plat);
     this.nourritureArray.splice(indexOfPlat);
   }
 
-  addMenuToPanier(menu: Menu){
-      this.menuArray.push(menu)
+  addMenuToPanier(menu: Menu, date): Promise<any> {
+    return new Promise((resolve, reject) => {
+      if (this.currentHour < this.heureDeFin && date === this.currentDate) {
+          this.menuArray.push(menu);
+          resolve();
+      } else {
+        reject();
+      }
+      });
   }
+
 
   emptyPanier(){
     this.nourritureArray = [];

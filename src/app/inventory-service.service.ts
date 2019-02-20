@@ -335,7 +335,7 @@ export class InventoryServiceService {
     });
 }
   getMenuFromDb(currentDate): Promise<any> {
-    currentDate = currentDate.trim();
+/*      console.log(currentDate);*/
     this.menuCollection = this.cantineappdb
         .collection('Inventaire')
         .doc('Menu')
@@ -345,21 +345,20 @@ export class InventoryServiceService {
             .get().then(data => {
             let menuArray: Menu[] = [];
             data.docs.forEach(doc => {
-              let menu = new Menu('', [ new Date(), new Date() ], '', '', '', '', '', '');
-              doc.data().menuJson.date.forEach(function (element) {
-              if (element == currentDate) {
-                  console.log("doc.data().menuJson.name");
-                  menu.name = doc.data().menuJson.name;
-                  menu.entree = doc.data().menuJson.entree;
-                  menu.plat = doc.data().menuJson.plat;
-                  menu.dessert = doc.data().menuJson.dessert;
-                  menu.boisson = doc.data().menuJson.boisson;
-                  menu.date = doc.data().menuJson.date;
-                  menu.price = doc.data().menuJson.price;
-                  menu.id = doc.id;
-                  menuArray.push(menu);
-                } else { console.log(`${element} \n ${currentDate}`)}
-              });
+                let menu = new Menu('', [ new Date(), new Date() ], '', '', '', '', '');
+                doc.data().menuJson.date.forEach(function (element) {
+                    if (element === currentDate) {
+                        menu.name = doc.data().menuJson.name;
+                        menu.entree = doc.data().menuJson.entree;
+                        menu.plat = doc.data().menuJson.plat;
+                        menu.dessert = doc.data().menuJson.dessert;
+                        menu.boisson = doc.data().menuJson.boisson;
+                        menu.date = doc.data().menuJson.date;
+                        menu.price = doc.data().menuJson.price;
+                        menu.id = doc.id;
+                        menuArray.push(menu);
+                    }
+                });
             });
             resolve(menuArray);
         });
