@@ -335,6 +335,7 @@ export class InventoryServiceService {
     });
 }
   getMenuFromDb(currentDate): Promise<any> {
+/*      console.log(currentDate);*/
     this.menuCollection = this.cantineappdb
         .collection('Inventaire')
         .doc('Menu')
@@ -347,7 +348,6 @@ export class InventoryServiceService {
                 let menu = new Menu('', [ new Date(), new Date() ], '', '', '', '', '');
                 doc.data().menuJson.date.forEach(function (element) {
                     if (element === currentDate) {
-                        console.log(doc.data().menuJson.name);
                         menu.name = doc.data().menuJson.name;
                         menu.entree = doc.data().menuJson.entree;
                         menu.plat = doc.data().menuJson.plat;
