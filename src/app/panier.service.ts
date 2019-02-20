@@ -38,9 +38,10 @@ export class PanierService {
 
   nourritureStore = of(this.nourritureArray);
   menuStore = of(this.menuArray);
-  heureDeFin = '12';
+  heureDeFin = 12;
   today = new Date();
-    currentDate = this.formatDate(this.today);
+  currentDate = this.formatDate(this.today);
+  currentHour = this.today.getHours();
   constructor(
     private http: HttpClient,
     private cantineappdb: AngularFirestore
@@ -75,7 +76,7 @@ export class PanierService {
     }
   addPlatToPanier(plat: Nourriture): Promise<any> {
     return new Promise((resolve, reject) => {
-      if (this.today.getHours() < this.heureDeFin) {
+      if (this.currentHour < this.heureDeFin) {
           this.nourritureArray.push(plat);
           resolve();
       } else {
@@ -90,7 +91,7 @@ export class PanierService {
 
   addMenuToPanier(menu: Menu, date): Promise<any> {
     return new Promise((resolve, reject) => {
-      if (this.today.getHours() < this.heureDeFin && date === this.currentDate) {
+      if (this.currentHour < this.heureDeFin && date === this.currentDate) {
           this.menuArray.push(menu);
           resolve();
       } else {
@@ -98,6 +99,7 @@ export class PanierService {
       }
       });
   }
+
 
   emptyPanier(){
     this.nourritureArray = [];
