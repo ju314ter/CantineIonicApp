@@ -8,7 +8,7 @@ import { Dessert } from 'src/models/Dessert';
 import { Snack } from 'src/models/Snack';
 
 
-import {AlertController, IonSlides} from '@ionic/angular';
+import {AlertController, IonSlides, ToastController} from '@ionic/angular';
 import { Nourriture } from 'src/models/supermodels/Nourriture';
 import { PanierService } from '../panier.service';
 
@@ -33,7 +33,8 @@ export class CarteNourriturePage implements OnInit {
   user: Object = {};
   constructor(private Inventory: InventoryServiceService,
               private alertController: AlertController,
-              private panierService: PanierService) { }
+              private panierService: PanierService,
+              private toastCtrl: ToastController) { }
 
   ngOnInit() {
     this.getNourritureArray();
@@ -106,8 +107,18 @@ export class CarteNourriturePage implements OnInit {
       });
       await alert.present();
   }
-
+    async presentToast(message) {
+        const toast = await this.toastCtrl.create({
+            message: message,
+            duration: 3000
+        });
+        toast.present();
+    }
   addToCart(nourriture: Nourriture){
-    this.panierService.addPlatToPanier(nourriture);
+    this.panierService.addPlatToPanier(nourriture).then(() => {
+        this.presentToast('Nourriture ajoutée au panier !');
+    }).catch(() => {
+        this.presentToast('Service terminée !');
+    });
   }
 }

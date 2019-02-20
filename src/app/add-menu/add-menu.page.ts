@@ -104,6 +104,8 @@ export class AddMenuPage implements OnInit {
         return date;
       };
     while (currentDate <= endDate) {
+      currentDate = currentDate.toISOString();
+      currentDate = currentDate.substring(0, 10);
       dates.push(currentDate);
       currentDate = addDays.call(currentDate, 1);
     }
