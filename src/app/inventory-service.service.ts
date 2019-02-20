@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs/index";
-import { map, tap, catchError } from "rxjs/internal/operators";
+import {map, tap, catchError, elementAt} from 'rxjs/internal/operators';
 
 import { Plat } from "../models/Plat";
 import { Dessert } from "../models/Dessert";
@@ -334,29 +334,65 @@ pushMenuToDb<Menu>(menu: Menu) {
             });
     });
 }
-getMenuFromDb(): Promise<any> {
+getMenuFromDb(currentDate): Promise<any> {
     this.menuCollection = this.cantineappdb
         .collection('Inventaire')
         .doc('Menu')
         .collection('Menu');
     return new Promise((resolve) => {
-        this.menuCollection.ref.get().then(data => {
+        this.menuCollection.ref
+            .get().then(data => {
             let menuArray: Menu[] = [];
             data.docs.forEach(doc => {
                 let menu = new Menu('', [ new Date(), new Date() ], '', '', '', '', '');
-                menu.name = doc.data().menuJson.name;
-                menu.entree = doc.data().menuJson.entree;
-                menu.plat = doc.data().menuJson.plat;
-                menu.dessert = doc.data().menuJson.dessert;
-                menu.boisson = doc.data().menuJson.boisson;
-                menu.date = doc.data().menuJson.date;
-                menu.id = doc.id;
-                menuArray.push(menu);
+                doc.data().menuJson.date.forEach(function (element) {
+                    if (element === currentDate) {
+                        console.log(doc.data().menuJson.name);
+                        menu.name = doc.data().menuJson.name;
+                        menu.entree = doc.data().menuJson.entree;
+                        menu.plat = doc.data().menuJson.plat;
+                        menu.dessert = doc.data().menuJson.dessert;
+                        menu.boisson = doc.data().menuJson.boisson;
+                        menu.date = doc.data().menuJson.date;
+                        menu.id = doc.id;
+                        menuArray.push(menu);
+                    }
+                });
             });
             resolve(menuArray);
         });
     });
 }
+
+
+
+    /*getMenuFromDb(): Promise<any> {
+        this.menuCollection = this.cantineappdb
+            .collection('Inventaire')
+            .doc('Menu')
+            .collection('Menu');
+        return new Promise((resolve) => {
+            this.menuCollection.ref
+                .get().then(data => {
+                let menuArray: Menu[] = [];
+                data.docs.forEach(doc => {
+                    let menu = new Menu('', [ new Date(), new Date() ], '', '', '', '', '');
+                    menu.name = doc.data().menuJson.name;
+                    menu.entree = doc.data().menuJson.entree;
+                    menu.plat = doc.data().menuJson.plat;
+                    menu.dessert = doc.data().menuJson.dessert;
+                    menu.boisson = doc.data().menuJson.boisson;
+                    menu.date = doc.data().menuJson.date;
+                    menu.id = doc.id;
+                    menuArray.push(menu);
+                });
+                resolve(menuArray);
+            });
+        });
+    }*/
+
+
+
 getOneMenuFromDb(key: string): Promise<any> {
     this.menuDocument = this.cantineappdb
         .collection('Inventaire')
