@@ -31,7 +31,6 @@ export class HomePage {
 
   ngOnInit() {
     this.getMenuArray(this.currentDate);
-    console.log(this.currentDate);
     this.user = JSON.parse(localStorage.getItem("user"));
   }
   formatDate(date) {

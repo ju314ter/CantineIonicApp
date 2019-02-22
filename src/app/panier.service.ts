@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable, of, empty } from "rxjs/index";
+import { Observable, of, empty, Subject, from } from "rxjs/index";
 import { map, tap, catchError } from "rxjs/internal/operators";
 
 import { Plat } from "../models/Plat";
@@ -18,73 +18,57 @@ import {
 import { resolve } from "url";
 
 import { Menu } from "src/models/Menu";
-import {Pro} from '@ionic/pro';
-import {reject} from 'q';
-
-const httpOptions = {
-  headers: new HttpHeaders({
-    "Content-Type": "application/json",
-    Authorization: "my-auth-token"
-  })
-};
 
 @Injectable({
   providedIn: "root"
 })
 export class PanierService {
-
   nourritureArray: Nourriture[] = [];
   menuArray: Menu[] = [];
+  isNourriturePanierEmpty : boolean = true;
+  isMenuPanierEmpty: boolean = true;
+  getNourriturePanier(): Observable<Nourriture[]> {
+    return of(this.nourritureArray)
+  }
+  getMenuPanier(): Observable<Menu[]> {
+    return of(this.menuArray)
+  }
 
-  nourritureStore = of(this.nourritureArray);
-  menuStore = of(this.menuArray);
-  heureDeFin = 12;
+  heureDeFin = 24;
   today = new Date();
   currentDate = this.formatDate(this.today);
   currentHour = this.today.getHours();
+  formatDate(date) {
+    let YYYY = date.getFullYear();
+    let MM = date.getMonth() + 1;
+    let DD = date.getDate();
+    if (MM < 10) {
+      MM = "0" + MM;
+    }
+    if (DD < 10) {
+      DD = "0" + DD;
+    }
+    return YYYY + "-" + MM + "-" + DD;
+  }
+
   constructor(
     private http: HttpClient,
     private cantineappdb: AngularFirestore
   ) {}
 
-    /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
-  private handleError<T>(operation = "operation", result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error); // log to console instead
-      console.log(`${operation} failed: ${error.message}`);
 
-      // Let the app keep running by returning an empty result.
-      return error;
-    };
-  }
-    formatDate(date) {
-        let YYYY = date.getFullYear();
-        let MM = date.getMonth() + 1;
-        let DD = date.getDate();
-        if (MM < 10) {
-            MM = '0' + MM;
-        }
-        if (DD < 10) {
-            DD = '0' + DD;
-        }
-        return YYYY + '-' + MM + '-' + DD;
-    }
   addPlatToPanier(plat: Nourriture): Promise<any> {
     return new Promise((resolve, reject) => {
       if (this.currentHour < this.heureDeFin) {
-          this.nourritureArray.push(plat);
-          resolve();
+        this.nourritureArray.push(plat);
+        this.isNourriturePanierEmpty = false;
+        resolve();
       } else {
         reject();
       }
     });
   }
-  deletePlatFromPanier(plat:Nourriture){
+  deletePlatFromPanier(plat: Nourriture) {
     let indexOfPlat = this.nourritureArray.indexOf(plat);
     this.nourritureArray.splice(indexOfPlat);
   }
@@ -92,71 +76,73 @@ export class PanierService {
   addMenuToPanier(menu: Menu, date): Promise<any> {
     return new Promise((resolve, reject) => {
       if (this.currentHour < this.heureDeFin && date === this.currentDate) {
-          this.menuArray.push(menu);
-          resolve();
+        this.menuArray.push(menu);
+        this.isMenuPanierEmpty = false;
+        resolve();
       } else {
         reject();
       }
-      });
+    });
   }
 
-
-  emptyPanier(){
+  emptyPanier() {
     this.nourritureArray = [];
     this.menuArray = [];
+    this.isMenuPanierEmpty = true;
+    this.isNourriturePanierEmpty = true;
+    
+    console.log(this.isNourriturePanierEmpty,this.isMenuPanierEmpty)
   }
 
-  calculerPrixPanier(): number{
+  calculerPrixPanier(): number {
     let prixMenus: number = 0;
-    this.menuArray.forEach((menu)=>{
-      prixMenus+=menu.price
-    })
+    this.menuArray.forEach(menu => {
+      prixMenus += menu.price;
+    });
 
     let prixNourritures: number = 0;
-    this.nourritureArray.forEach((nourriture) =>{
-      prixNourritures += nourriture.price
-    })
-    return prixMenus+prixNourritures;
+    this.nourritureArray.forEach(nourriture => {
+      prixNourritures += nourriture.price;
+    });
+    return prixMenus + prixNourritures;
   }
 
-  consumePanier(){
+  consumePanier() {
     let panierRef = {};
-    let user=JSON.parse(localStorage.getItem('user'));
+    let user = JSON.parse(localStorage.getItem("user"));
 
-    panierRef["idUser"]=user.id
-    panierRef["price"]= this.calculerPrixPanier();
-    panierRef["date"]= new Date();
+    panierRef["idUser"] = user.id;
+    panierRef["price"] = this.calculerPrixPanier();
+    panierRef["date"] = new Date();
 
-    Object.entries(this.nourritureArray).forEach(([key, value])=>{
+    Object.entries(this.nourritureArray).forEach(([key, value]) => {
       panierRef[value.id] = value.name;
-    })
-    Object.entries(this.menuArray).forEach(([key, value])=>{
+    });
+    Object.entries(this.menuArray).forEach(([key, value]) => {
       panierRef[value.id] = value.name;
-    })
+    });
 
     let commande = panierRef;
-    console.log(commande)
-    panierRef= [];
+    console.log(commande);
+    panierRef = [];
 
     this.emptyPanier();
 
     return new Promise((res, rej) => {
-      if(commande){
+      if (commande) {
         this.cantineappdb
-        .collection("Commandes")
-        .add(commande)
-        .then(function() {
-          console.log("Commande envoyée!");
-          res();
+          .collection("Commandes")
+          .add(commande)
+          .then(function() {
+            console.log("Commande envoyée!");
+            res();
           })
           .catch(function(error) {
             rej();
           });
-        }
-        else{
-          rej();
-        }  
-      });
-      
+      } else {
+        rej();
+      }
+    });
   }
 }
