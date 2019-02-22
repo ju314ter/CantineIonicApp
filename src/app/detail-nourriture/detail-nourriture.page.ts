@@ -5,6 +5,7 @@ import {Dessert} from '../../models/Dessert';
 import {InventoryServiceService} from '../inventory-service.service';
 import {Boisson} from '../../models/Boisson';
 import {ActivatedRoute} from '@angular/router';
+import { PanierService } from '../panier.service';
 
 @Component({
   selector: 'app-detail-nourriture',
@@ -17,7 +18,7 @@ export class DetailNourriturePage implements OnInit {
   entree: Entree;
   plat: Plat;
   dessert: Dessert;
-  constructor(private Inventory: InventoryServiceService, private route: ActivatedRoute) { }
+  constructor(private panier: PanierService ,private Inventory: InventoryServiceService, private route: ActivatedRoute) { }
   ngOnInit() {
     this.key = this.route.snapshot.paramMap.get('key');
     this.type = this.route.snapshot.paramMap.get('type');
@@ -38,6 +39,7 @@ export class DetailNourriturePage implements OnInit {
             console.log('Pas de type sélectionné');
       }
     }
-    //TODO: Faire fonction "ajouter au panier"
-    /*addPanier() {}*/
+    addPanier(plat){
+      this.panier.addPlatToPanier(plat);
+    }
 }
