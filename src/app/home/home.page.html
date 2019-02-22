@@ -4,20 +4,21 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Accueil - Land of the foodie
+      <span *ngIf="menus?.length === 1">Menu</span>
+      <span *ngIf="menus?.length != 1">Menus</span>
+      pour
+      <span *ngIf="currentDate === this.formatDate(this.today)">Aujourd'hui</span>
+      <span *ngIf="currentDate != this.formatDate(this.today)"><br>le {{ currentDate | date : 'longDate'}}</span>
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 
 <ion-content class="no-scroll">
-  <h1 text-center>{{ currentDate | date : 'longDate'}}</h1>
-  <ion-item>
-    <ion-label>Date</ion-label>
-    <ion-datetime display-format="DD MMMM YYYY" (ionChange)="changeDate()" [(ngModel)]="currentDate"></ion-datetime>
-  </ion-item>
-  <h2 *ngIf="menus.length === 0" text-center>
-    Aucun menu de disponible pour cette date :(
+  <ion-button text-center color="light" expand="full" ion-button icon-right (click)="picker.open()">Choisir la date</ion-button>
+  <ion-datetime hidden #picker display-format="DD MMMM YYYY" (ionChange)="changeDate()" [(ngModel)]="currentDate"></ion-datetime>
+  <h2 text-center *ngIf="">
+    Aucun menu de disponible pour cette date :( {{noMenus}}
   </h2>
     <ion-slides scrollbar="true" [options]="slideOpts">
       <ion-slide *ngFor="let menu of menus">
@@ -36,7 +37,7 @@
 
         </ion-card-content>
           <div text-center>
-            <ion-button (click)="addMenuToPanier(menu, currentDate)">Ajouter au panier</ion-button>
+            <ion-button (click)="addMenuToPanier(menu)">Ajouter au panier</ion-button>
           </div>
           <div text-center *ngIf="user.isAdmin">
             <ion-button color="danger" outline (click)="deleteMenu(menu.id)">supprimer</ion-button>

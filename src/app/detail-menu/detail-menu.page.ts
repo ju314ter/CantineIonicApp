@@ -53,6 +53,6 @@ export class DetailMenuPage implements OnInit {
       }
   }
   addMenuToPanier(){
-    this.panier.addMenuToPanier(this.menu, this.menu.date)
+    this.panier.addMenuToPanier(this.menu);
   }
 }

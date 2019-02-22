@@ -73,25 +73,25 @@ export class PanierService {
     this.nourritureArray.splice(indexOfPlat);
   }
 
-  addMenuToPanier(menu: Menu, date): Promise<any> {
-    return new Promise((resolve, reject) => {
-      if (this.currentHour < this.heureDeFin && date === this.currentDate) {
-        this.menuArray.push(menu);
-        this.isMenuPanierEmpty = false;
-        resolve();
-      } else {
-        reject();
-      }
-    });
-  }
+    addMenuToPanier(menu: Menu): Promise<any> {
+        return new Promise((resolve, reject) => {
+          if (this.currentHour < this.heureDeFin) {
+              this.menuArray.push(menu);
+              this.isMenuPanierEmpty = false;
+              resolve();
+          } else {
+            reject();
+          }
+
+        });
+    }
 
   emptyPanier() {
     this.nourritureArray = [];
     this.menuArray = [];
     this.isMenuPanierEmpty = true;
     this.isNourriturePanierEmpty = true;
-    
-    console.log(this.isNourriturePanierEmpty,this.isMenuPanierEmpty)
+    console.log(this.isNourriturePanierEmpty, this.isMenuPanierEmpty);
   }
 
   calculerPrixPanier(): number {

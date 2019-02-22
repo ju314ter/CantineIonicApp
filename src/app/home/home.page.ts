@@ -1,6 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
-
-import {AlertController, NavController, IonSlides, ToastController} from '@ionic/angular';
+import {AlertController, NavController, IonSlides, ToastController, LoadingController} from '@ionic/angular';
 import { Menu } from "src/models/Menu";
 import { InventoryServiceService } from "../inventory-service.service";
 import { PanierService } from "../panier.service";
@@ -26,13 +25,29 @@ export class HomePage {
     private Inventory: InventoryServiceService,
     public alertController: AlertController,
     private panierService: PanierService,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    public loadingCtrl: LoadingController
   ) {}
 
   ngOnInit() {
     this.getMenuArray(this.currentDate);
     this.user = JSON.parse(localStorage.getItem("user"));
   }
+
+/*
+    async presentLoadingDefault() {
+        let loading = await this.loadingCtrl.create({
+            content: 'Please wait...'
+        });
+
+        loading.present();
+
+        setTimeout(() => {
+            loading.dismiss();
+        }, 2000);
+    }
+*/
+
   formatDate(date) {
       let YYYY = date.getFullYear();
       let MM = date.getMonth() + 1;
@@ -104,8 +119,8 @@ export class HomePage {
         });
         toast.present();
     }
-  addMenuToPanier(menu: Menu, date) {
-    this.panierService.addMenuToPanier(menu, date).then(() => {
+  addMenuToPanier(menu: Menu) {
+    this.panierService.addMenuToPanier(menu).then(() => {
         this.presentToast('Menu ajouté au panier !');
     }).catch(() => {
         this.presentToast('Impossible d\'ajouter au panier');
