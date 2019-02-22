@@ -1,6 +1,6 @@
-<ion-header>
+<ion-header text-center>
   <ion-toolbar>
-    <ion-title>MENU : {{ menu?.name }}</ion-title>
+    <ion-title>{{ menu?.name }}</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -57,7 +57,7 @@
     </ion-grid>
 </ion-content>
 <ion-footer>
-    <ion-button expand="full">
+    <ion-button expand="full" (click)="addMenuToPanier()">
         Commander maintenant&nbsp;
         <span *ngIf="entree && plat">
             ({{ menu.price}} euros)

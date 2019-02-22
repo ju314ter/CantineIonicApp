@@ -27,17 +27,17 @@ export class HistoriqueCommandePage implements OnInit {
               document.push(value);
             }
             if(key == "price"){
-              document.push("prix : "+ value);
+              document["price"] = value;
             }
             if(key == "date"){
-              document.push(new Date(value.seconds));
+              document["date"] = new Date(value.seconds);
             }
           })
         }
         this.achats.push(document);
       });
     });
-    
+    console.log(this.achats)
   }
 
 }

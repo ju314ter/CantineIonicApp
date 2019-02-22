@@ -6,6 +6,7 @@ import {Entree} from '../../models/Entree';
 import {Plat} from '../../models/Plat';
 import {Dessert} from '../../models/Dessert';
 import {Boisson} from '../../models/Boisson';
+import { PanierService } from '../panier.service';
 
 @Component({
   selector: 'app-detail-menu',
@@ -23,7 +24,7 @@ export class DetailMenuPage implements OnInit {
   plat: Plat;
   dessert: Dessert;
   boisson: Boisson;
-  constructor(private route: ActivatedRoute, private Inventory: InventoryServiceService) { }
+  constructor(private panier : PanierService, private route: ActivatedRoute, private Inventory: InventoryServiceService) { }
 
   ngOnInit() {
       this.key = this.route.snapshot.paramMap.get('key');
@@ -50,5 +51,8 @@ export class DetailMenuPage implements OnInit {
       if (this.boissonKey) {
           this.Inventory.getOneNourritureFromDb('Boissons', this.boissonKey).then((data: Boisson) => this.boisson = data);
       }
+  }
+  addMenuToPanier(){
+    this.panier.addMenuToPanier(this.menu, this.menu.date)
   }
 }

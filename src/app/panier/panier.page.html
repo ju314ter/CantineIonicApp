@@ -11,12 +11,10 @@
   <div text-center *ngIf="isNourriturePanierEmpty && isMenuPanierEmpty">
     <h1>Votre panier est vide</h1>
   </div>
-
-
   <div *ngIf="!isNourriturePanierEmpty">
     <ion-title>Vos Extras</ion-title>
     <ion-list>
-      <ion-item *ngFor="let extra of nourriturePanier">
+      <ion-item *ngFor="let extra of nourriturePanier | async">
         <ion-chip>
           <ion-avatar>
             <ion-img src="{{extra.imgUrl}}"></ion-img>
@@ -31,7 +29,7 @@
   <div *ngIf="!isMenuPanierEmpty">
     <ion-title>Vos menus</ion-title>
     <ion-list>
-      <ion-item *ngFor="let menu of menuPanier">
+      <ion-item *ngFor="let menu of menuPanier | async">
         <ion-chip>
           <ion-avatar>
             <ion-img src="{{menu.imgUrl}}"></ion-img>

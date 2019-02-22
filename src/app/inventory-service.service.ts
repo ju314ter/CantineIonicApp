@@ -38,7 +38,6 @@ export class InventoryServiceService {
     private http: HttpClient,
     private cantineappdb: AngularFirestore
   ) {}
-
   /**
    * Handle Http operation that failed.
    * Let the app continue.
