@@ -4,8 +4,9 @@ import { LoginComponent } from './login/login/login.component';
 import { AuthGuardGuard } from './login/auth-guard.guard';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent},
-  { path: 'home', loadChildren: './home/home.module#HomePageModule', canActivate: [AuthGuardGuard]},
+  { path: '', loadChildren: './home/home.module#HomePageModule'},
+  { path: 'home', loadChildren: './home/home.module#HomePageModule'},
+  { path: 'login', component: LoginComponent},
   { path: 'account', loadChildren: './account/account.module#AccountPageModule', canActivate: [AuthGuardGuard]},
   { path: 'add-nourriture', loadChildren: './add-nourriture/add-nourriture.module#AddNourriturePageModule', canActivate: [AuthGuardGuard] },
   { path: 'carte-nourriture', loadChildren: './carte-nourriture/carte-nourriture.module#CarteNourriturePageModule', canActivate: [AuthGuardGuard] },

@@ -28,6 +28,7 @@ const httpOptions = {
   providedIn: "root"
 })
 export class UserService {
+  isUserConnected : boolean = false;
   userCollection: AngularFirestoreCollection<User>;
   userDocument: AngularFirestoreDocument<User>;
   user : Observable<User | null>
@@ -59,10 +60,11 @@ export class UserService {
 
     return this.cantineAuth.auth.signInWithEmailAndPassword(user.mailUser, user.password)
     .then(data => {
-    const userRef = this.cantineappdb.doc(`/Utilisateurs/${data.user.uid}`)
-    userRef.ref.get().then((doc)=>{
-      let connectedUser = doc.data();
-      localStorage.setItem('user', JSON.stringify(connectedUser))
+      const userRef = this.cantineappdb.doc(`/Utilisateurs/${data.user.uid}`)
+      userRef.ref.get().then((doc)=>{
+        let connectedUser = doc.data();
+        localStorage.setItem('user', JSON.stringify(connectedUser))
+        this.isUserConnected = true;
     })
     
     })
@@ -70,7 +72,8 @@ export class UserService {
 
   logOutUser(){
     this.cantineAuth.auth.signOut().then(()=>{
-      localStorage.removeItem('user')
+      localStorage.removeItem('user');
+      this.isUserConnected = false;
       this.router.navigate(['/'])
     });
   }

@@ -25,4 +25,9 @@ export class AccountPage implements OnInit {
     localStorage.setItem('user', JSON.stringify(this.user));
   }
 
+  logout(){
+    localStorage.clear();
+    this.userService.logOutUser();
+ }
+
 }

@@ -10,6 +10,9 @@
       <span *ngIf="currentDate === this.formatDate(this.today)">Aujourd'hui</span>
       <span *ngIf="currentDate != this.formatDate(this.today)"><br>le {{ currentDate | date : 'longDate'}}</span>
     </ion-title>
+    <div text-left>
+      <ion-button *ngIf="!isUserConnected" [routerLink]="['/login']">Connection/Inscription</ion-button>
+    </div>
   </ion-toolbar>
 </ion-header>
 
@@ -39,14 +42,14 @@
           <div text-center>
             <ion-button (click)="addMenuToPanier(menu)">Ajouter au panier</ion-button>
           </div>
-          <div text-center *ngIf="user.isAdmin">
+          <div text-center *ngIf="user?.isAdmin">
             <ion-button color="danger" outline (click)="deleteMenu(menu.id)">supprimer</ion-button>
           </div>
         </ion-card>
       </ion-slide>
     </ion-slides>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="user.isAdmin">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="user?.isAdmin">
     <ion-fab-button>
       <ion-icon name="add-circle-outline"></ion-icon>
     </ion-fab-button>

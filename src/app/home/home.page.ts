@@ -15,6 +15,8 @@ export class HomePage {
   slideOpts = {
     effect: "flip"
   };
+
+  isUserConnected : boolean;
   menus: Menu[];
   imgMenuArray: string[] = [];
   menuToDisplay: Object = {};
@@ -32,6 +34,9 @@ export class HomePage {
   ngOnInit() {
     this.getMenuArray(this.currentDate);
     this.user = JSON.parse(localStorage.getItem("user"));
+  }
+  ionViewDidEnter(){
+    (localStorage.getItem('user'))? this.isUserConnected = true : this.isUserConnected = false;
   }
 
 /*

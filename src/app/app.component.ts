@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
   templateUrl: 'app.component.html'
 })
 export class AppComponent {
-  public userConnected : Boolean;
   
   public appPages = [
     {
@@ -51,12 +50,6 @@ export class AppComponent {
     
     this.initializeApp();
     
-    (localStorage.getItem('user'))? this.userConnected = true : this.userConnected = false;
-  }
-
-  logout(){
-      localStorage.clear();
-      this.userService.logOutUser();
   }
 
   initializeApp() {
