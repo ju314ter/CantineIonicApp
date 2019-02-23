@@ -3,50 +3,64 @@
     <ion-title>{{ menu?.name }}</ion-title>
   </ion-toolbar>
 </ion-header>
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="6">
+                <div *ngIf="entree" text-center>
+                    <h2>ENTREE</h2>
+                    <ion-card>
+                        <ion-img *ngIf="entree.imgUrl" src="{{ entree.imgUrl }}" [alt]="entree.imgUrl" style="width: 150px; height: 150px;"></ion-img>
+                        <ion-card-header>
+                           <h3>{{ entree.name }}</h3>
+                        </ion-card-header>
+                    </ion-card>
+                </div>               
+            </ion-col>
 
-<ion-content padding>
-    <div *ngIf="entree" text-center>
-        <h2>ENTREE</h2>
-        <ion-card>
-            <ion-img *ngIf="entree.imgUrl" src="{{ entree.imgUrl }}" [alt]="entree.imgUrl"></ion-img>
-            <ion-card-header>
-                <ion-card-title>{{ entree.name }}</ion-card-title>
-            </ion-card-header>
-        </ion-card>
-    </div>
-    <div *ngIf="plat" text-center>
-        <h2>PLAT</h2>
-        <ion-card>
-            <ion-img *ngIf="plat.imgUrl" src="{{ plat.imgUrl }}" [alt]="plat.imgUrl"></ion-img>
-            <ion-card-header>
-                <ion-card-title>{{ plat.name }}</ion-card-title>
-            </ion-card-header>
-        </ion-card>
-    </div>
-    <div *ngIf="dessert" text-center>
-        <h2>DESSERT</h2>
-        <ion-card>
-            <ion-img *ngIf="dessert.imgUrl" src="{{ dessert.imgUrl }}" [alt]="dessert.imgUrl"></ion-img>
-            <ion-card-header>
-                <ion-card-title>{{ dessert.name }}</ion-card-title>
-            </ion-card-header>
-        </ion-card>
-    </div>
-    <div *ngIf="boisson" text-center>
-        <h2>BOISSON</h2>
-        <ion-card>
-            <ion-img *ngIf="boisson.imgUrl" src="{{ boisson.imgUrl }}" [alt]="boisson.imgUrl"></ion-img>
-            <ion-card-header>
-                <ion-card-title>{{ boisson.name }}</ion-card-title>
-            </ion-card-header>
-        </ion-card>
-    </div>
+            <ion-col size="6">
+                <div *ngIf="plat" text-center>
+                    <h2>PLAT</h2>
+                    <ion-card>
+                        <ion-img *ngIf="plat.imgUrl" src="{{ plat.imgUrl }}" [alt]="plat.imgUrl" style="width: 150px; height: 150px;"></ion-img>
+                        <ion-card-header>
+                            <h3>{{ plat.name }}</h3>
+                        </ion-card-header>
+                    </ion-card>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="6">
+                <div *ngIf="dessert" text-center>
+                    <h2>DESSERT</h2>
+                    <ion-card>
+                        <ion-img *ngIf="dessert.imgUrl" src="{{ dessert.imgUrl }}" [alt]="dessert.imgUrl" style="width: 150px; height: 150px;"></ion-img>
+                        <ion-card-header>
+                            <h3>{{ dessert.name }}</h3>
+                        </ion-card-header>
+                    </ion-card>
+                </div>   
+            </ion-col>
+            <ion-col size="6">
+                <div *ngIf="boisson" text-center>
+                    <h2>BOISSON</h2>
+                    <ion-card>
+                        <ion-img *ngIf="boisson.imgUrl" src="{{ boisson.imgUrl }}" [alt]="boisson.imgUrl" style="width: 150px; height: 150px;"></ion-img>
+                        <ion-card-header>
+                            <h3>{{ boisson.name }}</h3>
+                        </ion-card-header>
+                    </ion-card>
+                </div> 
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>
 <ion-footer>
     <ion-button expand="full" (click)="addMenuToPanier()">
         Commander maintenant&nbsp;
         <span *ngIf="entree && plat">
-             ({{ this.getTotalPrice(entree, plat, dessert, boisson) }} euros)
+            ({{ menu.price}} euros)
         </span>
     </ion-button>
 </ion-footer>
