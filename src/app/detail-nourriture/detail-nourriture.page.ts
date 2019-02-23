@@ -6,6 +6,7 @@ import {InventoryServiceService} from '../inventory-service.service';
 import {Boisson} from '../../models/Boisson';
 import {ActivatedRoute} from '@angular/router';
 import { PanierService } from '../panier.service';
+import {ToastController} from '@ionic/angular';
 
 @Component({
   selector: 'app-detail-nourriture',
@@ -18,7 +19,11 @@ export class DetailNourriturePage implements OnInit {
   entree: Entree;
   plat: Plat;
   dessert: Dessert;
-  constructor(private panier: PanierService ,private Inventory: InventoryServiceService, private route: ActivatedRoute) { }
+  constructor(
+      private toastCtrl: ToastController,
+      private panier: PanierService,
+      private Inventory: InventoryServiceService,
+      private route: ActivatedRoute) { }
   ngOnInit() {
     this.key = this.route.snapshot.paramMap.get('key');
     this.type = this.route.snapshot.paramMap.get('type');
@@ -39,7 +44,19 @@ export class DetailNourriturePage implements OnInit {
             console.log('Pas de type sélectionné');
       }
     }
-    addPanier(plat){
-      this.panier.addPlatToPanier(plat);
+    async presentToast(message) {
+        const toast = await this.toastCtrl.create({
+            message: message,
+            duration: 3000,
+            position: 'top'
+        });
+        toast.present();
+    }
+    addPanier(plat) {
+      this.panier.addPlatToPanier(plat).then(() => {
+        this.presentToast('Nourriture ajoutée au panier !');
+      }).catch(() => {
+        this.presentToast('Service terminée !');
+      });
     }
 }

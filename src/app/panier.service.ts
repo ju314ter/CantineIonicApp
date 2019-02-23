@@ -28,16 +28,18 @@ export class PanierService {
   isNourriturePanierEmpty : boolean = true;
   isMenuPanierEmpty: boolean = true;
   getNourriturePanier(): Observable<Nourriture[]> {
-    return of(this.nourritureArray)
+    return of(this.nourritureArray);
   }
   getMenuPanier(): Observable<Menu[]> {
-    return of(this.menuArray)
+    return of(this.menuArray);
   }
 
-  heureDeFin = 24;
+  heureDeFin = 10;
+  minuteDeFin = 30;
   today = new Date();
   currentDate = this.formatDate(this.today);
   currentHour = this.today.getHours();
+  currentMinute = this.today.getMinutes();
   formatDate(date) {
     let YYYY = date.getFullYear();
     let MM = date.getMonth() + 1;
@@ -56,10 +58,22 @@ export class PanierService {
     private cantineappdb: AngularFirestore
   ) {}
 
-
+  verifTimer(currentHour, currentMinute) {
+    if (currentHour === this.heureDeFin) {
+      if (currentMinute < this.minuteDeFin) {
+        return true;
+      } else {
+        return false;
+      }
+    } else if (currentHour < this.heureDeFin) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   addPlatToPanier(plat: Nourriture): Promise<any> {
     return new Promise((resolve, reject) => {
-      if (this.currentHour < this.heureDeFin) {
+      if (this.verifTimer(this.currentHour, this.currentMinute)) {
         this.nourritureArray.push(plat);
         this.isNourriturePanierEmpty = false;
         resolve();
@@ -73,25 +87,26 @@ export class PanierService {
     this.nourritureArray.splice(indexOfPlat);
   }
 
-  addMenuToPanier(menu: Menu, date): Promise<any> {
-    return new Promise((resolve, reject) => {
-      if (this.currentHour < this.heureDeFin && date === this.currentDate) {
-        this.menuArray.push(menu);
-        this.isMenuPanierEmpty = false;
-        resolve();
-      } else {
-        reject();
-      }
-    });
-  }
+    addMenuToPanier(menu: Menu): Promise<any> {
+    let verifDate = menu.date.indexOf(this.currentDate);
+        return new Promise((resolve, reject) => {
+          if (this.verifTimer(this.currentHour, this.currentMinute) && verifDate !== -1) {
+              this.menuArray.push(menu);
+              this.isMenuPanierEmpty = false;
+              resolve();
+          } else {
+            reject();
+          }
+
+        });
+    }
 
   emptyPanier() {
     this.nourritureArray = [];
     this.menuArray = [];
     this.isMenuPanierEmpty = true;
     this.isNourriturePanierEmpty = true;
-    
-    console.log(this.isNourriturePanierEmpty,this.isMenuPanierEmpty)
+    console.log(this.isNourriturePanierEmpty, this.isMenuPanierEmpty);
   }
 
   calculerPrixPanier(): number {
