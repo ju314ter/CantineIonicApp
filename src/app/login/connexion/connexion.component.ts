@@ -12,6 +12,8 @@ import { User } from 'src/models/supermodels/User';
 })
 export class ConnexionComponent implements OnInit {
 
+  isPasswordForgotten : boolean = false;
+  resetPasswordMail : string = "";
   connexionForm = {
     mailUser: '',
     password: ''
@@ -27,6 +29,15 @@ export class ConnexionComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+  passwordForgottenDisplay(){
+    (this.isPasswordForgotten)? this.isPasswordForgotten = false : this.isPasswordForgotten = true;
+  }
+  resetMail(){
+    this.userService.resetUserPassword(this.resetPasswordMail).then(()=>{
+      this.presentToast("Email de reset envoyé")
+    })
+    this.isPasswordForgotten = false;
   }
 
   async presentAlert(message) {

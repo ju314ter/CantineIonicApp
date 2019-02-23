@@ -92,5 +92,11 @@ export class UserService {
     }
     return userRef.set(data)
   }
+
+  resetUserPassword(email){
+    console.log(typeof(email))
+    return this.cantineAuth.auth.sendPasswordResetEmail(email)
+    .then(()=>{console.log("Email de reset envoyé")}).catch(err=>console.log(err))
+  }
   
 }

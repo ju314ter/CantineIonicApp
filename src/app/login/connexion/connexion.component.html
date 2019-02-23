@@ -14,6 +14,12 @@
     <div text-center>
       <ion-button ion-button round text-center type="submit" *ngIf="!password.errors?.required && !mailUser.errors?.required">Connexion</ion-button>
     </div>
+    <div (click)="passwordForgottenDisplay()"><p>Mot de passe oublié ?</p></div>
   </form>
-
 </ion-card>
+
+<div *ngIf="isPasswordForgotten">
+  <ion-label>Adresse mail</ion-label>
+  <ion-input type="mail" name="emailForgotten" [(ngModel)]="resetPasswordMail"></ion-input>
+  <ion-button type="submit" (click)="resetMail()">Envoyer mail reset</ion-button>
+</div>
