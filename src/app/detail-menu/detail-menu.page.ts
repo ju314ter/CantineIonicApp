@@ -7,6 +7,7 @@ import {Plat} from '../../models/Plat';
 import {Dessert} from '../../models/Dessert';
 import {Boisson} from '../../models/Boisson';
 import { PanierService } from '../panier.service';
+import {ToastController} from '@ionic/angular';
 
 @Component({
   selector: 'app-detail-menu',
@@ -24,7 +25,7 @@ export class DetailMenuPage implements OnInit {
   plat: Plat;
   dessert: Dessert;
   boisson: Boisson;
-  constructor(private panier : PanierService, private route: ActivatedRoute, private Inventory: InventoryServiceService) { }
+  constructor(private toastCtrl: ToastController, private panier: PanierService, private route: ActivatedRoute, private Inventory: InventoryServiceService) { }
 
   ngOnInit() {
       this.key = this.route.snapshot.paramMap.get('key');
@@ -52,7 +53,19 @@ export class DetailMenuPage implements OnInit {
           this.Inventory.getOneNourritureFromDb('Boissons', this.boissonKey).then((data: Boisson) => this.boisson = data);
       }
   }
-  addMenuToPanier(){
-    this.panier.addMenuToPanier(this.menu);
+  async presentToast(message) {
+        const toast = await this.toastCtrl.create({
+            message: message,
+            duration: 3000,
+            position: 'top'
+        });
+        toast.present();
+  }
+  addMenuToPanier() {
+    this.panier.addMenuToPanier(this.menu).then(() => {
+        this.presentToast('Menu ajouté au panier !');
+    }).catch(() => {
+        this.presentToast('Impossible d\'ajouter au panier');
+    });
   }
 }
